@@ -1,5 +1,5 @@
 const express = require("express");
-const dbName = "finishes";
+const dbName = "Finishes";
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -9,6 +9,7 @@ const livereload = require("livereload");
 const connectLivereload = require("connect-livereload");
 const server = require("http").createServer(app);
 const path = require("path");
+const DATA_BASE_URL = "mongodb+srv://AhmedKh:mongo@cluster0.xrny0xe.mongodb.net"
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/uploads", express.static("uploads"));
@@ -23,7 +24,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to my server!");
 });
 
-mongoose.connect(`${process.env.DATABASE_URL}/${dbName}`).then((db) => {
+mongoose.connect(`${process.env.DATABASE_URL|| DATA_BASE_URL}/${dbName}`).then((db) => {
   console.log("Connected! to database ");
 server.listen(process.env.PORT, () => {
    console.log("Listening on port " + process.env.PORT);
