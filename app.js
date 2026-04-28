@@ -9,7 +9,7 @@ const livereload = require("livereload");
 const connectLivereload = require("connect-livereload");
 const server = require("http").createServer(app);
 const path = require("path");
-const DATA_BASE_URL = "mongodb+srv://AhmedKh:mongo@cluster0.xrny0xe.mongodb.net"
+const DATA_BASE_URL = "mongodb+srv://ah_db_user:Ah20192344@newcluster.iloyqea.mongodb.net"
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/uploads", express.static("uploads"));
