@@ -120,6 +120,7 @@ try {
       console.log("Loaded ./routes/invoicesRoutes");
 
       appExp.use('/api/accountStatement', require('./routes/accountStatementsRoutes'));
+      appExp.use('/api/transaction', require('./routes/transactionsRoutes'));
       console.log("Loaded ./routes/accountStatementsRoutes");
 
       appExp.use('/api/item', require('./routes/itemesRoutes'));

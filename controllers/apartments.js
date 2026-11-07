@@ -173,10 +173,25 @@ const getApartmentLastCode = async (req, res) => {
 };
 
 const getApartmentsNames = async (req, res) => {
-  const { clientId } = req.query;
-  const apartments = await Apartment.find({client: clientId});
-  const apartmentsNames = apartments.map(apartment =>{return {id:apartment._id ,name:apartment.address}});
-  res.status(200).send({apartmentsNames});
+  try {
+    const { clientId } = req.query;
+    let query = {};
+    if (clientId) {
+      try {
+        query = { $or: [{ client: clientId }, { client: new objectId(clientId) }] };
+      } catch (e) {
+        query = { client: clientId };
+      }
+    }
+    const apartments = await Apartment.find(query);
+    const apartmentsNames = apartments.map(apartment => ({
+      id: apartment._id,
+      name: apartment.address
+    }));
+    res.status(200).send({ apartmentsNames });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
 };
 module.exports = {
   addApartment,

@@ -3,10 +3,12 @@ const router = express.Router();
 const accountStatementController = require("../controllers/accountStatements");
 
 router.route("/get-all").get(accountStatementController.getAccountStatements);
+router.route("/get-names").get(accountStatementController.getAccountStatementsNames);
 router.route("/get-one").get(accountStatementController.getOneAccountStatement);
 router.route("/add").post(accountStatementController.addAccountStatement);
 router.route("/delete").delete(accountStatementController.deleteAccountStatement);
 router.route("/update").put(accountStatementController.updateAccountStatement);
+router.route("/toggle-status").put(accountStatementController.toggleAccountStatementStatus);
 router.route("/get-code").get(accountStatementController.getAccountStatementLastCode);
 
 module.exports = router;
