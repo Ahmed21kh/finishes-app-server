@@ -1,20 +1,64 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <linearGradient id="shatabGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2563eb" />
-      <stop offset="50%" stop-color="#3b82f6" />
-      <stop offset="100%" stop-color="#6366f1" />
+    <!-- Background Luxury Gradient -->
+    <linearGradient id="shatabBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d4ed8" />
+      <stop offset="45%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#4f46e5" />
     </linearGradient>
+
+    <!-- Glass Reflection -->
+    <linearGradient id="shatabGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3" />
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Cyan Accent Gradient -->
+    <linearGradient id="cyanAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <!-- Shadow Filter -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.3" />
+    </filter>
   </defs>
 
-  <!-- Rounded App Icon Background with High Contrast -->
-  <rect x="24" y="24" width="464" height="464" rx="116" fill="url(#shatabGrad)" />
+  <!-- Squircle Base with Soft Outer Border -->
+  <rect x="28" y="28" width="456" height="456" rx="118" fill="url(#shatabBg)" />
+  <rect x="28" y="28" width="456" height="456" rx="118" fill="url(#shatabGlow)" />
+  <rect x="28" y="28" width="456" height="456" rx="118" stroke="#ffffff" stroke-width="3" stroke-opacity="0.25" />
 
-  <!-- Crisp White House Icon -->
-  <g fill="#ffffff">
-    <!-- Roof and Chimney -->
-    <path d="M256 112 L96 252 C88 259 90 272 100 276 C108 279 118 276 124 270 L256 154 L388 270 C394 275 403 278 411 275 C421 271 424 259 416 252 L368 210 L368 140 C368 132 360 124 352 124 L324 124 C316 124 308 132 308 140 L308 158 Z" />
-    <!-- House Body and Door -->
-    <path d="M144 240 L144 380 C144 393 155 404 168 404 L220 404 L220 296 C220 287 227 280 236 280 L276 280 C285 280 292 287 292 296 L292 404 L344 404 C357 404 368 393 368 380 L368 240 Z" />
+  <!-- 3 Crown Architectural Diamond Dots (Shin نقاط ش) -->
+  <g filter="url(#dropShadow)">
+    <circle cx="204" cy="144" r="14" fill="#38bdf8" />
+    <circle cx="256" cy="112" r="16" fill="#7dd3fc" />
+    <circle cx="308" cy="144" r="14" fill="#38bdf8" />
+  </g>
+
+  <!-- Main Architectural Villa & Interior Finishes Structure -->
+  <g filter="url(#dropShadow)">
+    <!-- Main Villa Outer Silhouette (Pristine White) -->
+    <path d="M256 160 L108 274 C101 279 105 290 114 290 H144 V394 C144 404 152 412 162 412 H350 C360 412 368 404 368 394 V290 H398 C407 290 411 279 404 274 L256 160 Z" fill="#ffffff" />
+
+    <!-- Architectural Negative Space / Modern Interior Spaces -->
+    <!-- Central Entrance / Double-Height Glass Atrium -->
+    <path d="M226 252 H286 V412 H226 V252 Z" fill="#1e3a8a" opacity="0.95" />
+    <!-- Modern Cyan Door / Glass Line -->
+    <rect x="254" y="268" width="4" height="144" fill="#38bdf8" opacity="0.8" />
+    <circle cx="266" cy="344" r="4" fill="#ffffff" />
+
+    <!-- Left Architectural Vertical Window Slits (Modern Finishes) -->
+    <rect x="172" y="306" width="28" height="68" rx="6" fill="#1e3a8a" opacity="0.9" />
+    <line x1="186" y1="306" x2="186" y2="374" stroke="#38bdf8" stroke-width="2" opacity="0.6" />
+
+    <!-- Right Architectural Vertical Window Slits (Modern Finishes) -->
+    <rect x="312" y="306" width="28" height="68" rx="6" fill="#1e3a8a" opacity="0.9" />
+    <line x1="326" y1="306" x2="326" y2="374" stroke="#38bdf8" stroke-width="2" opacity="0.6" />
+
+    <!-- Upper Architectural Triangular Apex Window -->
+    <polygon points="256,194 280,228 232,228" fill="url(#cyanAccent)" />
   </g>
 </svg>

@@ -17008,7 +17008,7 @@ var require_body_parser = __commonJS({
     var deprecate = require_depd()("body-parser");
     var parsers = /* @__PURE__ */ Object.create(null);
     exports2 = module2.exports = deprecate.function(
-      bodyParser,
+      bodyParser2,
       "bodyParser: use individual json/urlencoded middlewares"
     );
     Object.defineProperty(exports2, "json", {
@@ -17031,7 +17031,7 @@ var require_body_parser = __commonJS({
       enumerable: true,
       get: createParserGetter("urlencoded")
     });
-    function bodyParser(options) {
+    function bodyParser2(options) {
       var opts = Object.create(options || null, {
         type: {
           configurable: true,
@@ -17042,7 +17042,7 @@ var require_body_parser = __commonJS({
       });
       var _urlencoded = exports2.urlencoded(opts);
       var _json = exports2.json(opts);
-      return function bodyParser2(req, res, next) {
+      return function bodyParser3(req, res, next) {
         _json(req, res, function(err) {
           if (err) return next(err);
           _urlencoded(req, res, next);
@@ -17538,8 +17538,8 @@ var require_encodeurl = __commonJS({
     var ENCODE_CHARS_REGEXP = /(?:[^\x21\x23-\x3B\x3D\x3F-\x5F\x61-\x7A\x7C\x7E]|%(?:[^0-9A-Fa-f]|[0-9A-Fa-f][^0-9A-Fa-f]|$))+/g;
     var UNMATCHED_SURROGATE_PAIR_REGEXP = /(^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]|[\uD800-\uDBFF]([^\uDC00-\uDFFF]|$)/g;
     var UNMATCHED_SURROGATE_PAIR_REPLACE = "$1\uFFFD$2";
-    function encodeUrl(url2) {
-      return String(url2).replace(UNMATCHED_SURROGATE_PAIR_REGEXP, UNMATCHED_SURROGATE_PAIR_REPLACE).replace(ENCODE_CHARS_REGEXP, encodeURI);
+    function encodeUrl(url) {
+      return String(url).replace(UNMATCHED_SURROGATE_PAIR_REGEXP, UNMATCHED_SURROGATE_PAIR_REPLACE).replace(ENCODE_CHARS_REGEXP, encodeURI);
     }
   }
 });
@@ -17595,35 +17595,35 @@ var require_escape_html = __commonJS({
 var require_parseurl = __commonJS({
   "node_modules/parseurl/index.js"(exports2, module2) {
     "use strict";
-    var url2 = require("url");
-    var parse = url2.parse;
-    var Url = url2.Url;
+    var url = require("url");
+    var parse = url.parse;
+    var Url = url.Url;
     module2.exports = parseurl;
     module2.exports.original = originalurl;
     function parseurl(req) {
-      var url3 = req.url;
-      if (url3 === void 0) {
+      var url2 = req.url;
+      if (url2 === void 0) {
         return void 0;
       }
       var parsed = req._parsedUrl;
-      if (fresh(url3, parsed)) {
+      if (fresh(url2, parsed)) {
         return parsed;
       }
-      parsed = fastparse(url3);
-      parsed._raw = url3;
+      parsed = fastparse(url2);
+      parsed._raw = url2;
       return req._parsedUrl = parsed;
     }
     function originalurl(req) {
-      var url3 = req.originalUrl;
-      if (typeof url3 !== "string") {
+      var url2 = req.originalUrl;
+      if (typeof url2 !== "string") {
         return parseurl(req);
       }
       var parsed = req._parsedOriginalUrl;
-      if (fresh(url3, parsed)) {
+      if (fresh(url2, parsed)) {
         return parsed;
       }
-      parsed = fastparse(url3);
-      parsed._raw = url3;
+      parsed = fastparse(url2);
+      parsed._raw = url2;
       return req._parsedOriginalUrl = parsed;
     }
     function fastparse(str) {
@@ -17659,18 +17659,18 @@ var require_parseurl = __commonJS({
             return parse(str);
         }
       }
-      var url3 = Url !== void 0 ? new Url() : {};
-      url3.path = str;
-      url3.href = str;
-      url3.pathname = pathname;
+      var url2 = Url !== void 0 ? new Url() : {};
+      url2.path = str;
+      url2.href = str;
+      url2.pathname = pathname;
       if (search !== null) {
-        url3.query = query;
-        url3.search = search;
+        url2.query = query;
+        url2.search = search;
       }
-      return url3;
+      return url2;
     }
-    function fresh(url3, parsedUrl) {
-      return typeof parsedUrl === "object" && parsedUrl !== null && (Url === void 0 || parsedUrl instanceof Url) && parsedUrl._raw === url3;
+    function fresh(url2, parsedUrl) {
+      return typeof parsedUrl === "object" && parsedUrl !== null && (Url === void 0 || parsedUrl instanceof Url) && parsedUrl._raw === url2;
     }
   }
 });
@@ -18067,10 +18067,10 @@ var require_layer = __commonJS({
 var require_methods = __commonJS({
   "node_modules/methods/index.js"(exports2, module2) {
     "use strict";
-    var http = require("http");
+    var http2 = require("http");
     module2.exports = getCurrentNodeMethods() || getBasicNodeMethods();
     function getCurrentNodeMethods() {
-      return http.METHODS && http.METHODS.map(function lowerCaseMethod(method) {
+      return http2.METHODS && http2.METHODS.map(function lowerCaseMethod(method) {
         return method.toLowerCase();
       });
     }
@@ -18533,14 +18533,14 @@ var require_router = __commonJS({
         return void 0;
       }
     }
-    function getProtohost(url2) {
-      if (typeof url2 !== "string" || url2.length === 0 || url2[0] === "/") {
+    function getProtohost(url) {
+      if (typeof url !== "string" || url.length === 0 || url[0] === "/") {
         return void 0;
       }
-      var searchIndex = url2.indexOf("?");
-      var pathLength = searchIndex !== -1 ? searchIndex : url2.length;
-      var fqdnIndex = url2.slice(0, pathLength).indexOf("://");
-      return fqdnIndex !== -1 ? url2.substring(0, url2.indexOf("/", 3 + fqdnIndex)) : void 0;
+      var searchIndex = url.indexOf("?");
+      var pathLength = searchIndex !== -1 ? searchIndex : url.length;
+      var fqdnIndex = url.slice(0, pathLength).indexOf("://");
+      return fqdnIndex !== -1 ? url.substring(0, url.indexOf("/", 3 + fqdnIndex)) : void 0;
     }
     function gettype(obj) {
       var type = typeof obj;
@@ -19397,8 +19397,8 @@ var require_encodeurl2 = __commonJS({
     var ENCODE_CHARS_REGEXP = /(?:[^\x21\x25\x26-\x3B\x3D\x3F-\x5B\x5D\x5F\x61-\x7A\x7E]|%(?:[^0-9A-Fa-f]|[0-9A-Fa-f][^0-9A-Fa-f]|$))+/g;
     var UNMATCHED_SURROGATE_PAIR_REGEXP = /(^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]|[\uD800-\uDBFF]([^\uDC00-\uDFFF]|$)/g;
     var UNMATCHED_SURROGATE_PAIR_REPLACE = "$1\uFFFD$2";
-    function encodeUrl(url2) {
-      return String(url2).replace(UNMATCHED_SURROGATE_PAIR_REGEXP, UNMATCHED_SURROGATE_PAIR_REPLACE).replace(ENCODE_CHARS_REGEXP, encodeURI);
+    function encodeUrl(url) {
+      return String(url).replace(UNMATCHED_SURROGATE_PAIR_REGEXP, UNMATCHED_SURROGATE_PAIR_REPLACE).replace(ENCODE_CHARS_REGEXP, encodeURI);
     }
   }
 });
@@ -21297,7 +21297,7 @@ var require_application = __commonJS({
     var query = require_query();
     var debug = require_src2()("express:application");
     var View = require_view();
-    var http = require("http");
+    var http2 = require("http");
     var compileETag = require_utils2().compileETag;
     var compileQueryParser = require_utils2().compileQueryParser;
     var compileTrust = require_utils2().compileTrust;
@@ -21546,7 +21546,7 @@ var require_application = __commonJS({
       tryRender(view, renderOptions, done);
     };
     app2.listen = function listen() {
-      var server = http.createServer(this);
+      var server = http2.createServer(this);
       return server.listen.apply(server, arguments);
     };
     function logerror(err) {
@@ -22148,12 +22148,12 @@ var require_request = __commonJS({
     var deprecate = require_depd()("express");
     var isIP = require("net").isIP;
     var typeis = require_type_is();
-    var http = require("http");
+    var http2 = require("http");
     var fresh = require_fresh();
     var parseRange = require_range_parser();
     var parse = require_parseurl();
     var proxyaddr = require_proxy_addr();
-    var req = Object.create(http.IncomingMessage.prototype);
+    var req = Object.create(http2.IncomingMessage.prototype);
     module2.exports = req;
     req.get = req.header = function header(name) {
       if (!name) {
@@ -22573,7 +22573,7 @@ var require_response = __commonJS({
     var deprecate = require_depd()("express");
     var encodeUrl = require_encodeurl();
     var escapeHtml = require_escape_html();
-    var http = require("http");
+    var http2 = require("http");
     var isAbsolute = require_utils2().isAbsolute;
     var onFinished = require_on_finished();
     var path2 = require("path");
@@ -22589,7 +22589,7 @@ var require_response = __commonJS({
     var mime = send.mime;
     var resolve = path2.resolve;
     var vary = require_vary();
-    var res = Object.create(http.ServerResponse.prototype);
+    var res = Object.create(http2.ServerResponse.prototype);
     module2.exports = res;
     var charsetRegExp = /;\s*charset\s*=/;
     res.status = function status(code) {
@@ -22949,18 +22949,18 @@ var require_response = __commonJS({
       this.append("Set-Cookie", cookie.serialize(name, String(val), opts));
       return this;
     };
-    res.location = function location(url2) {
+    res.location = function location(url) {
       var loc;
-      if (url2 === "back") {
+      if (url === "back") {
         deprecate('res.location("back"): use res.location(req.get("Referrer") || "/") and refer to https://dub.sh/security-redirect for best practices');
         loc = this.req.get("Referrer") || "/";
       } else {
-        loc = String(url2);
+        loc = String(url);
       }
       return this.set("Location", encodeUrl(loc));
     };
-    res.redirect = function redirect(url2) {
-      var address = url2;
+    res.redirect = function redirect(url) {
+      var address = url;
       var body;
       var status = 302;
       if (arguments.length === 2) {
@@ -23114,7 +23114,7 @@ var require_serve_static = __commonJS({
     var parseUrl = require_parseurl();
     var resolve = require("path").resolve;
     var send = require_send();
-    var url2 = require("url");
+    var url = require("url");
     module2.exports = serveStatic;
     module2.exports.mime = send.mime;
     function serveStatic(root, options) {
@@ -23196,7 +23196,7 @@ var require_serve_static = __commonJS({
         var originalUrl = parseUrl.original(this.req);
         originalUrl.path = null;
         originalUrl.pathname = collapseLeadingSlashes(originalUrl.pathname + "/");
-        var loc = encodeUrl(url2.format(originalUrl));
+        var loc = encodeUrl(url.format(originalUrl));
         var doc = createHtmlDocument("Redirecting", "Redirecting to " + escapeHtml(loc));
         res.statusCode = 301;
         res.setHeader("Content-Type", "text/html; charset=UTF-8");
@@ -23214,7 +23214,7 @@ var require_serve_static = __commonJS({
 var require_express = __commonJS({
   "node_modules/express/lib/express.js"(exports2, module2) {
     "use strict";
-    var bodyParser = require_body_parser();
+    var bodyParser2 = require_body_parser();
     var EventEmitter = require("events").EventEmitter;
     var mixin = require_merge_descriptors();
     var proto = require_application();
@@ -23243,12 +23243,12 @@ var require_express = __commonJS({
     exports2.response = res;
     exports2.Route = Route;
     exports2.Router = Router;
-    exports2.json = bodyParser.json;
+    exports2.json = bodyParser2.json;
     exports2.query = require_query();
-    exports2.raw = bodyParser.raw;
+    exports2.raw = bodyParser2.raw;
     exports2.static = require_serve_static();
-    exports2.text = bodyParser.text;
-    exports2.urlencoded = bodyParser.urlencoded;
+    exports2.text = bodyParser2.text;
+    exports2.urlencoded = bodyParser2.urlencoded;
     var removedMiddlewares = [
       "bodyParser",
       "compress",
@@ -29717,9 +29717,9 @@ var require_utils3 = __commonJS({
     exports2.abortable = abortable;
     var crypto = require("crypto");
     var fs_1 = require("fs");
-    var http = require("http");
+    var http2 = require("http");
     var timers_1 = require("timers");
-    var url2 = require("url");
+    var url = require("url");
     var url_1 = require("url");
     var util_1 = require("util");
     var bson_1 = require_bson2();
@@ -30214,16 +30214,16 @@ var require_utils3 = __commonJS({
           return;
         }
         const urlString = `iLoveJS://${escapedHost}`;
-        let url3;
+        let url2;
         try {
-          url3 = new url_1.URL(urlString);
+          url2 = new url_1.URL(urlString);
         } catch (urlError) {
           const runtimeError = new error_1.MongoRuntimeError(`Unable to parse ${escapedHost} with URL`);
           runtimeError.cause = urlError;
           throw runtimeError;
         }
-        const hostname = url3.hostname;
-        const port = url3.port;
+        const hostname = url2.hostname;
+        const port = url2.port;
         let normalized = decodeURIComponent(hostname).toLowerCase();
         if (normalized.startsWith("[") && normalized.endsWith("]")) {
           this.isIPv6 = true;
@@ -30374,10 +30374,10 @@ var require_utils3 = __commonJS({
         throw new error_1.MongoAPIError("Server record does not share hostname with parent URI");
       }
     }
-    function get(url3, options = {}) {
+    function get(url2, options = {}) {
       return new Promise((resolve, reject) => {
         let timeoutId;
-        const request2 = http.get(url3, options, (response) => {
+        const request2 = http2.get(url2, options, (response) => {
           response.setEncoding("utf8");
           let body = "";
           response.on("data", (chunk) => body += chunk);
@@ -30400,10 +30400,10 @@ var require_utils3 = __commonJS({
           method: "GET",
           timeout: 1e4,
           json: true,
-          ...url2.parse(uri),
+          ...url.parse(uri),
           ...options
         };
-        const req = http.request(requestOptions, (res) => {
+        const req = http2.request(requestOptions, (res) => {
           res.setEncoding("utf8");
           let data = "";
           res.on("data", (d) => {
@@ -39836,12 +39836,12 @@ var require_ipv6 = __commonJS({
        * addressAndPort.address.correctForm(); // 'ffff::'
        * addressAndPort.port; // 8080
        */
-      static fromURL(url2) {
+      static fromURL(url) {
         let host;
         let port = null;
         let result;
-        if (url2.indexOf("[") !== -1 && url2.indexOf("]:") !== -1) {
-          result = constants6.RE_URL_WITH_PORT.exec(url2);
+        if (url.indexOf("[") !== -1 && url.indexOf("]:") !== -1) {
+          result = constants6.RE_URL_WITH_PORT.exec(url);
           if (result === null) {
             return {
               error: "failed to parse address with port",
@@ -39851,9 +39851,9 @@ var require_ipv6 = __commonJS({
           }
           host = result[1];
           port = result[2];
-        } else if (url2.indexOf("/") !== -1) {
-          url2 = url2.replace(/^[a-z0-9]+:\/\//, "");
-          result = constants6.RE_URL.exec(url2);
+        } else if (url.indexOf("/") !== -1) {
+          url = url.replace(/^[a-z0-9]+:\/\//, "");
+          result = constants6.RE_URL.exec(url);
           if (result === null) {
             return {
               error: "failed to parse address from URL",
@@ -39863,7 +39863,7 @@ var require_ipv6 = __commonJS({
           }
           host = result[1];
         } else {
-          host = url2;
+          host = url;
         }
         if (port) {
           port = parseInt(port, 10);
@@ -43265,11 +43265,11 @@ var require_url_state_machine = __commonJS({
     function isSpecialScheme(scheme) {
       return specialSchemes[scheme] !== void 0;
     }
-    function isSpecial(url2) {
-      return isSpecialScheme(url2.scheme);
+    function isSpecial(url) {
+      return isSpecialScheme(url.scheme);
     }
-    function isNotSpecial(url2) {
-      return !isSpecialScheme(url2.scheme);
+    function isNotSpecial(url) {
+      return !isSpecialScheme(url.scheme);
     }
     function defaultPort(scheme) {
       return specialSchemes[scheme];
@@ -43590,38 +43590,38 @@ var require_url_state_machine = __commonJS({
       }
       return string.substring(start, end);
     }
-    function trimTabAndNewline(url2) {
-      return url2.replace(/\u0009|\u000A|\u000D/ug, "");
+    function trimTabAndNewline(url) {
+      return url.replace(/\u0009|\u000A|\u000D/ug, "");
     }
-    function shortenPath(url2) {
-      const { path: path2 } = url2;
+    function shortenPath(url) {
+      const { path: path2 } = url;
       if (path2.length === 0) {
         return;
       }
-      if (url2.scheme === "file" && path2.length === 1 && isNormalizedWindowsDriveLetter(path2[0])) {
+      if (url.scheme === "file" && path2.length === 1 && isNormalizedWindowsDriveLetter(path2[0])) {
         return;
       }
       path2.pop();
     }
-    function includesCredentials(url2) {
-      return url2.username !== "" || url2.password !== "";
+    function includesCredentials(url) {
+      return url.username !== "" || url.password !== "";
     }
-    function cannotHaveAUsernamePasswordPort(url2) {
-      return url2.host === null || url2.host === "" || url2.scheme === "file";
+    function cannotHaveAUsernamePasswordPort(url) {
+      return url.host === null || url.host === "" || url.scheme === "file";
     }
-    function hasAnOpaquePath(url2) {
-      return typeof url2.path === "string";
+    function hasAnOpaquePath(url) {
+      return typeof url.path === "string";
     }
     function isNormalizedWindowsDriveLetter(string) {
       return /^[A-Za-z]:$/u.test(string);
     }
-    function URLStateMachine(input, base, encodingOverride, url2, stateOverride) {
+    function URLStateMachine(input, base, encodingOverride, url, stateOverride) {
       this.pointer = 0;
       this.input = input;
       this.base = base || null;
       this.encodingOverride = encodingOverride || "utf-8";
       this.stateOverride = stateOverride;
-      this.url = url2;
+      this.url = url;
       this.failure = false;
       this.parseError = false;
       if (!this.url) {
@@ -44147,31 +44147,31 @@ var require_url_state_machine = __commonJS({
       }
       return true;
     };
-    function serializeURL(url2, excludeFragment) {
-      let output = `${url2.scheme}:`;
-      if (url2.host !== null) {
+    function serializeURL(url, excludeFragment) {
+      let output = `${url.scheme}:`;
+      if (url.host !== null) {
         output += "//";
-        if (url2.username !== "" || url2.password !== "") {
-          output += url2.username;
-          if (url2.password !== "") {
-            output += `:${url2.password}`;
+        if (url.username !== "" || url.password !== "") {
+          output += url.username;
+          if (url.password !== "") {
+            output += `:${url.password}`;
           }
           output += "@";
         }
-        output += serializeHost(url2.host);
-        if (url2.port !== null) {
-          output += `:${url2.port}`;
+        output += serializeHost(url.host);
+        if (url.port !== null) {
+          output += `:${url.port}`;
         }
       }
-      if (url2.host === null && !hasAnOpaquePath(url2) && url2.path.length > 1 && url2.path[0] === "") {
+      if (url.host === null && !hasAnOpaquePath(url) && url.path.length > 1 && url.path[0] === "") {
         output += "/.";
       }
-      output += serializePath(url2);
-      if (url2.query !== null) {
-        output += `?${url2.query}`;
+      output += serializePath(url);
+      if (url.query !== null) {
+        output += `?${url.query}`;
       }
-      if (!excludeFragment && url2.fragment !== null) {
-        output += `#${url2.fragment}`;
+      if (!excludeFragment && url.fragment !== null) {
+        output += `#${url.fragment}`;
       }
       return output;
     }
@@ -44183,22 +44183,22 @@ var require_url_state_machine = __commonJS({
       }
       return result;
     }
-    function serializePath(url2) {
-      if (hasAnOpaquePath(url2)) {
-        return url2.path;
+    function serializePath(url) {
+      if (hasAnOpaquePath(url)) {
+        return url.path;
       }
       let output = "";
-      for (const segment of url2.path) {
+      for (const segment of url.path) {
         output += `/${segment}`;
       }
       return output;
     }
     module2.exports.serializeURL = serializeURL;
     module2.exports.serializePath = serializePath;
-    module2.exports.serializeURLOrigin = function(url2) {
-      switch (url2.scheme) {
+    module2.exports.serializeURLOrigin = function(url) {
+      switch (url.scheme) {
         case "blob": {
-          const pathURL = module2.exports.parseURL(serializePath(url2));
+          const pathURL = module2.exports.parseURL(serializePath(url));
           if (pathURL === null) {
             return "null";
           }
@@ -44213,9 +44213,9 @@ var require_url_state_machine = __commonJS({
         case "ws":
         case "wss":
           return serializeOrigin({
-            scheme: url2.scheme,
-            host: url2.host,
-            port: url2.port
+            scheme: url.scheme,
+            host: url.host,
+            port: url.port
           });
         case "file":
           return "null";
@@ -44233,11 +44233,11 @@ var require_url_state_machine = __commonJS({
       }
       return usm.url;
     };
-    module2.exports.setTheUsername = function(url2, username) {
-      url2.username = utf8PercentEncodeString(username, isUserinfoPercentEncode);
+    module2.exports.setTheUsername = function(url, username) {
+      url.username = utf8PercentEncodeString(username, isUserinfoPercentEncode);
     };
-    module2.exports.setThePassword = function(url2, password) {
-      url2.password = utf8PercentEncodeString(password, isUserinfoPercentEncode);
+    module2.exports.setThePassword = function(url, password) {
+      url.password = utf8PercentEncodeString(password, isUserinfoPercentEncode);
     };
     module2.exports.serializeHost = serializeHost;
     module2.exports.cannotHaveAUsernamePasswordPort = cannotHaveAUsernamePasswordPort;
@@ -44951,7 +44951,7 @@ var require_URL_impl = __commonJS({
     exports2.implementation = class URLImpl {
       // Unlike the spec, we duplicate some code between the constructor and canParse, because we want to give useful error
       // messages in the constructor that distinguish between the different causes of failure.
-      constructor(globalObject, [url2, base]) {
+      constructor(globalObject, [url, base]) {
         let parsedBase = null;
         if (base !== void 0) {
           parsedBase = usm.basicURLParse(base);
@@ -44959,9 +44959,9 @@ var require_URL_impl = __commonJS({
             throw new TypeError(`Invalid base URL: ${base}`);
           }
         }
-        const parsedURL = usm.basicURLParse(url2, { baseURL: parsedBase });
+        const parsedURL = usm.basicURLParse(url, { baseURL: parsedBase });
         if (parsedURL === null) {
-          throw new TypeError(`Invalid URL: ${url2}`);
+          throw new TypeError(`Invalid URL: ${url}`);
         }
         const query = parsedURL.query !== null ? parsedURL.query : "";
         this._url = parsedURL;
@@ -44975,7 +44975,7 @@ var require_URL_impl = __commonJS({
           return null;
         }
       }
-      static canParse(url2, base) {
+      static canParse(url, base) {
         let parsedBase = null;
         if (base !== void 0) {
           parsedBase = usm.basicURLParse(base);
@@ -44983,7 +44983,7 @@ var require_URL_impl = __commonJS({
             return false;
           }
         }
-        const parsedURL = usm.basicURLParse(url2, { baseURL: parsedBase });
+        const parsedURL = usm.basicURLParse(url, { baseURL: parsedBase });
         if (parsedURL === null) {
           return false;
         }
@@ -45032,14 +45032,14 @@ var require_URL_impl = __commonJS({
         usm.setThePassword(this._url, v);
       }
       get host() {
-        const url2 = this._url;
-        if (url2.host === null) {
+        const url = this._url;
+        if (url.host === null) {
           return "";
         }
-        if (url2.port === null) {
-          return usm.serializeHost(url2.host);
+        if (url.port === null) {
+          return usm.serializeHost(url.host);
         }
-        return `${usm.serializeHost(url2.host)}:${usm.serializeInteger(url2.port)}`;
+        return `${usm.serializeHost(url.host)}:${usm.serializeInteger(url.port)}`;
       }
       set host(v) {
         if (usm.hasAnOpaquePath(this._url)) {
@@ -45092,15 +45092,15 @@ var require_URL_impl = __commonJS({
         return `?${this._url.query}`;
       }
       set search(v) {
-        const url2 = this._url;
+        const url = this._url;
         if (v === "") {
-          url2.query = null;
+          url.query = null;
           this._query._list = [];
           return;
         }
         const input = v[0] === "?" ? v.substring(1) : v;
-        url2.query = "";
-        usm.basicURLParse(input, { url: url2, stateOverride: "query" });
+        url.query = "";
+        usm.basicURLParse(input, { url, stateOverride: "query" });
         this._query._list = urlencoded.parseUrlencodedString(input);
       }
       get searchParams() {
@@ -45202,7 +45202,7 @@ var require_URL = __commonJS({
       }
       const ctorRegistry = utils.initCtorRegistry(globalObject);
       class URL2 {
-        constructor(url2) {
+        constructor(url) {
           if (arguments.length < 1) {
             throw new globalObject.TypeError(
               `Failed to construct 'URL': 1 argument required, but only ${arguments.length} present.`
@@ -45439,7 +45439,7 @@ var require_URL = __commonJS({
           });
           esValue[implSymbol]["hash"] = V;
         }
-        static parse(url2) {
+        static parse(url) {
           if (arguments.length < 1) {
             throw new globalObject.TypeError(
               `Failed to execute 'parse' on 'URL': 1 argument required, but only ${arguments.length} present.`
@@ -45466,7 +45466,7 @@ var require_URL = __commonJS({
           }
           return utils.tryWrapperForImpl(Impl.implementation.parse(globalObject, ...args));
         }
-        static canParse(url2) {
+        static canParse(url) {
           if (arguments.length < 1) {
             throw new globalObject.TypeError(
               `Failed to execute 'canParse' on 'URL': 1 argument required, but only ${arguments.length} present.`
@@ -45605,32 +45605,32 @@ var require_redact = __commonJS({
     var index_1 = __importStar(require_lib4());
     function redactValidConnectionString(inputUrl, options) {
       var _a, _b;
-      const url2 = inputUrl.clone();
+      const url = inputUrl.clone();
       const replacementString = (_a = options === null || options === void 0 ? void 0 : options.replacementString) !== null && _a !== void 0 ? _a : "_credentials_";
       const redactUsernames = (_b = options === null || options === void 0 ? void 0 : options.redactUsernames) !== null && _b !== void 0 ? _b : true;
-      if ((url2.username || url2.password) && redactUsernames) {
-        url2.username = replacementString;
-        url2.password = "";
-      } else if (url2.password) {
-        url2.password = replacementString;
+      if ((url.username || url.password) && redactUsernames) {
+        url.username = replacementString;
+        url.password = "";
+      } else if (url.password) {
+        url.password = replacementString;
       }
-      if (url2.searchParams.has("authMechanismProperties")) {
-        const props = new index_1.CommaAndColonSeparatedRecord(url2.searchParams.get("authMechanismProperties"));
+      if (url.searchParams.has("authMechanismProperties")) {
+        const props = new index_1.CommaAndColonSeparatedRecord(url.searchParams.get("authMechanismProperties"));
         if (props.get("AWS_SESSION_TOKEN")) {
           props.set("AWS_SESSION_TOKEN", replacementString);
-          url2.searchParams.set("authMechanismProperties", props.toString());
+          url.searchParams.set("authMechanismProperties", props.toString());
         }
       }
-      if (url2.searchParams.has("tlsCertificateKeyFilePassword")) {
-        url2.searchParams.set("tlsCertificateKeyFilePassword", replacementString);
+      if (url.searchParams.has("tlsCertificateKeyFilePassword")) {
+        url.searchParams.set("tlsCertificateKeyFilePassword", replacementString);
       }
-      if (url2.searchParams.has("proxyUsername") && redactUsernames) {
-        url2.searchParams.set("proxyUsername", replacementString);
+      if (url.searchParams.has("proxyUsername") && redactUsernames) {
+        url.searchParams.set("proxyUsername", replacementString);
       }
-      if (url2.searchParams.has("proxyPassword")) {
-        url2.searchParams.set("proxyPassword", replacementString);
+      if (url.searchParams.has("proxyPassword")) {
+        url.searchParams.set("proxyPassword", replacementString);
       }
-      return url2;
+      return url;
     }
     exports2.redactValidConnectionString = redactValidConnectionString;
     function redactConnectionString(uri, options) {
@@ -47244,24 +47244,24 @@ var require_azure = __commonJS({
         expiresOnTimestamp: Date.now() + expiresInMS
       };
     }
-    function addAzureParams(url2, resource, username) {
-      url2.searchParams.append("api-version", "2018-02-01");
-      url2.searchParams.append("resource", resource);
+    function addAzureParams(url, resource, username) {
+      url.searchParams.append("api-version", "2018-02-01");
+      url.searchParams.append("resource", resource);
       if (username) {
-        url2.searchParams.append("client_id", username);
+        url.searchParams.append("client_id", username);
       }
-      return url2;
+      return url;
     }
     function prepareRequest(options) {
-      const url2 = new URL(options.url?.toString() ?? exports2.AZURE_BASE_URL);
-      addAzureParams(url2, "https://vault.azure.net");
+      const url = new URL(options.url?.toString() ?? exports2.AZURE_BASE_URL);
+      addAzureParams(url, "https://vault.azure.net");
       const headers = { ...options.headers, "Content-Type": "application/json", Metadata: true };
-      return { headers, url: url2 };
+      return { headers, url };
     }
     async function fetchAzureKMSToken(options = {}) {
-      const { headers, url: url2 } = prepareRequest(options);
+      const { headers, url } = prepareRequest(options);
       try {
-        const response = await (0, utils_1.get)(url2, { headers });
+        const response = await (0, utils_1.get)(url, { headers });
         return await parseResponse(response);
       } catch (error) {
         if (error instanceof error_1.MongoNetworkTimeoutError) {
@@ -53037,28 +53037,28 @@ var require_connection_string = __commonJS({
       if (options.useBigInt64 && typeof options.promoteValues === "boolean" && !options.promoteValues) {
         throw new error_1.MongoAPIError("Must request either bigint or Long for int64 deserialization");
       }
-      const url2 = new mongodb_connection_string_url_1.default(uri);
-      const { hosts, isSRV } = url2;
+      const url = new mongodb_connection_string_url_1.default(uri);
+      const { hosts, isSRV } = url;
       const mongoOptions = /* @__PURE__ */ Object.create(null);
       mongoOptions.hosts = isSRV ? [] : hosts.map(utils_1.HostAddress.fromString);
       const urlOptions = new CaseInsensitiveMap();
-      if (url2.pathname !== "/" && url2.pathname !== "") {
-        const dbName = decodeURIComponent(url2.pathname[0] === "/" ? url2.pathname.slice(1) : url2.pathname);
+      if (url.pathname !== "/" && url.pathname !== "") {
+        const dbName = decodeURIComponent(url.pathname[0] === "/" ? url.pathname.slice(1) : url.pathname);
         if (dbName) {
           urlOptions.set("dbName", [dbName]);
         }
       }
-      if (url2.username !== "") {
+      if (url.username !== "") {
         const auth = {
-          username: decodeURIComponent(url2.username)
+          username: decodeURIComponent(url.username)
         };
-        if (typeof url2.password === "string") {
-          auth.password = decodeURIComponent(url2.password);
+        if (typeof url.password === "string") {
+          auth.password = decodeURIComponent(url.password);
         }
         urlOptions.set("auth", [auth]);
       }
-      for (const key of url2.searchParams.keys()) {
-        const values = url2.searchParams.getAll(key);
+      for (const key of url.searchParams.keys()) {
+        const values = url.searchParams.getAll(key);
         const isReadPreferenceTags = /readPreferenceTags/i.test(key);
         if (!isReadPreferenceTags && values.length > 1) {
           throw new error_1.MongoInvalidArgumentError(`URI option "${key}" cannot appear more than once in the connection string`);
@@ -54169,9 +54169,9 @@ var require_azure_machine_workflow = __commonJS({
     };
     exports2.AzureMachineWorkflow = AzureMachineWorkflow;
     async function getAzureTokenData(tokenAudience, username) {
-      const url2 = new URL(azure_1.AZURE_BASE_URL);
-      (0, azure_1.addAzureParams)(url2, tokenAudience, username);
-      const response = await (0, utils_1.get)(url2, {
+      const url = new URL(azure_1.AZURE_BASE_URL);
+      (0, azure_1.addAzureParams)(url, tokenAudience, username);
+      const response = await (0, utils_1.get)(url, {
         headers: AZURE_HEADERS
       });
       if (response.status !== 200) {
@@ -54223,9 +54223,9 @@ var require_gcp_machine_workflow = __commonJS({
     };
     exports2.GCPMachineWorkflow = GCPMachineWorkflow;
     async function getGcpTokenData(tokenAudience) {
-      const url2 = new URL(GCP_BASE_URL);
-      url2.searchParams.append("audience", tokenAudience);
-      const response = await (0, utils_1.get)(url2, {
+      const url = new URL(GCP_BASE_URL);
+      url.searchParams.append("audience", tokenAudience);
+      const response = await (0, utils_1.get)(url, {
         headers: GCP_HEADERS
       });
       if (response.status !== 200) {
@@ -58145,15 +58145,15 @@ var require_mongo_client = __commonJS({
       v1: "1"
     });
     var MongoClient = class extends mongo_types_1.TypedEventEmitter {
-      constructor(url2, options) {
+      constructor(url, options) {
         super();
         this.on("error", utils_1.noop);
-        this.options = (0, connection_string_1.parseOptions)(url2, this, options);
+        this.options = (0, connection_string_1.parseOptions)(url, this, options);
         const shouldSetLogger = Object.values(this.options.mongoLoggerOptions.componentSeverities).some((value) => value !== mongo_logger_1.SeverityLevel.OFF);
         this.mongoLogger = shouldSetLogger ? new mongo_logger_1.MongoLogger(this.options.mongoLoggerOptions) : void 0;
         const client = this;
         this.s = {
-          url: url2,
+          url,
           bsonOptions: (0, bson_1.resolveBSONOptions)(this.options),
           namespace: (0, utils_1.ns)("admin"),
           hasBeenClosed: false,
@@ -58429,8 +58429,8 @@ var require_mongo_client = __commonJS({
        *
        * @see https://www.mongodb.com/docs/manual/reference/connection-string/
        */
-      static async connect(url2, options) {
-        const client = new this(url2, options);
+      static async connect(url, options) {
+        const client = new this(url, options);
         return await client.connect();
       }
       /**
@@ -61080,8 +61080,8 @@ var require_collection3 = __commonJS({
             this.$printToStream(_this.name, i, args, debug);
           } else {
             const color = debug.color == null ? true : debug.color;
-            const shell = debug.shell == null ? false : debug.shell;
-            this.$print(_this.name, i, args, color, shell);
+            const shell2 = debug.shell == null ? false : debug.shell;
+            this.$print(_this.name, i, args, color, shell2);
           }
         }
         this.conn.emit("operation-start", { _id: opId, modelName: _this.modelName, collectionName: this.name, method: i, params: _args });
@@ -61138,13 +61138,13 @@ var require_collection3 = __commonJS({
       }
       iter(key);
     }
-    NativeCollection.prototype.$print = function(name, i, args, color, shell) {
+    NativeCollection.prototype.$print = function(name, i, args, color, shell2) {
       const moduleName = color ? "\x1B[0;36mMongoose:\x1B[0m " : "Mongoose: ";
       const functionCall = [name, i].join(".");
       const _args = [];
       for (let j = args.length - 1; j >= 0; --j) {
         if (this.$format(args[j]) || _args.length) {
-          _args.unshift(this.$format(args[j], color, shell));
+          _args.unshift(this.$format(args[j], color, shell2));
         }
       }
       const params = "(" + _args.join(", ") + ")";
@@ -61161,10 +61161,10 @@ var require_collection3 = __commonJS({
       const params = "(" + _args.join(", ") + ")";
       stream2.write(functionCall + params, "utf8");
     };
-    NativeCollection.prototype.$format = function(arg, color, shell) {
+    NativeCollection.prototype.$format = function(arg, color, shell2) {
       const type = typeof arg;
       if (type === "function" || type === "undefined") return "";
-      return format(arg, false, color, shell);
+      return format(arg, false, color, shell2);
     };
     function inspectable(representation) {
       const ret = {
@@ -61183,14 +61183,14 @@ var require_collection3 = __commonJS({
     function formatObjectId(x, key) {
       x[key] = inspectable('ObjectId("' + x[key].toHexString() + '")');
     }
-    function formatDate(x, key, shell) {
-      if (shell) {
+    function formatDate(x, key, shell2) {
+      if (shell2) {
         x[key] = inspectable('ISODate("' + x[key].toUTCString() + '")');
       } else {
         x[key] = inspectable('new Date("' + x[key].toUTCString() + '")');
       }
     }
-    function format(obj, sub, color, shell) {
+    function format(obj, sub, color, shell2) {
       if (obj && typeof obj.toBSON === "function") {
         obj = obj.toBSON();
       }
@@ -61229,7 +61229,7 @@ var require_collection3 = __commonJS({
             } else if (_constructorName === "ObjectId") {
               formatObjectId(x, key);
             } else if (_constructorName === "Date") {
-              formatDate(x, key, shell);
+              formatDate(x, key, shell2);
             } else if (_constructorName === "ClientSession") {
               x[key] = inspectable('ClientSession("' + (x[key] && x[key].id && x[key].id.id && x[key].id.id.buffer || "").toString("hex") + '")');
             } else if (Array.isArray(x[key])) {
@@ -93483,6 +93483,341 @@ var require_lib9 = __commonJS({
   }
 });
 
+// node_modules/dotenv/package.json
+var require_package3 = __commonJS({
+  "node_modules/dotenv/package.json"(exports2, module2) {
+    module2.exports = {
+      name: "dotenv",
+      version: "16.5.0",
+      description: "Loads environment variables from .env file",
+      main: "lib/main.js",
+      types: "lib/main.d.ts",
+      exports: {
+        ".": {
+          types: "./lib/main.d.ts",
+          require: "./lib/main.js",
+          default: "./lib/main.js"
+        },
+        "./config": "./config.js",
+        "./config.js": "./config.js",
+        "./lib/env-options": "./lib/env-options.js",
+        "./lib/env-options.js": "./lib/env-options.js",
+        "./lib/cli-options": "./lib/cli-options.js",
+        "./lib/cli-options.js": "./lib/cli-options.js",
+        "./package.json": "./package.json"
+      },
+      scripts: {
+        "dts-check": "tsc --project tests/types/tsconfig.json",
+        lint: "standard",
+        pretest: "npm run lint && npm run dts-check",
+        test: "tap run --allow-empty-coverage --disable-coverage --timeout=60000",
+        "test:coverage": "tap run --show-full-coverage --timeout=60000 --coverage-report=lcov",
+        prerelease: "npm test",
+        release: "standard-version"
+      },
+      repository: {
+        type: "git",
+        url: "git://github.com/motdotla/dotenv.git"
+      },
+      homepage: "https://github.com/motdotla/dotenv#readme",
+      funding: "https://dotenvx.com",
+      keywords: [
+        "dotenv",
+        "env",
+        ".env",
+        "environment",
+        "variables",
+        "config",
+        "settings"
+      ],
+      readmeFilename: "README.md",
+      license: "BSD-2-Clause",
+      devDependencies: {
+        "@types/node": "^18.11.3",
+        decache: "^4.6.2",
+        sinon: "^14.0.1",
+        standard: "^17.0.0",
+        "standard-version": "^9.5.0",
+        tap: "^19.2.0",
+        typescript: "^4.8.4"
+      },
+      engines: {
+        node: ">=12"
+      },
+      browser: {
+        fs: false
+      }
+    };
+  }
+});
+
+// node_modules/dotenv/lib/main.js
+var require_main = __commonJS({
+  "node_modules/dotenv/lib/main.js"(exports2, module2) {
+    var fs2 = require("fs");
+    var path2 = require("path");
+    var os = require("os");
+    var crypto = require("crypto");
+    var packageJson = require_package3();
+    var version = packageJson.version;
+    var LINE = /(?:^|^)\s*(?:export\s+)?([\w.-]+)(?:\s*=\s*?|:\s+?)(\s*'(?:\\'|[^'])*'|\s*"(?:\\"|[^"])*"|\s*`(?:\\`|[^`])*`|[^#\r\n]+)?\s*(?:#.*)?(?:$|$)/mg;
+    function parse(src) {
+      const obj = {};
+      let lines = src.toString();
+      lines = lines.replace(/\r\n?/mg, "\n");
+      let match;
+      while ((match = LINE.exec(lines)) != null) {
+        const key = match[1];
+        let value = match[2] || "";
+        value = value.trim();
+        const maybeQuote = value[0];
+        value = value.replace(/^(['"`])([\s\S]*)\1$/mg, "$2");
+        if (maybeQuote === '"') {
+          value = value.replace(/\\n/g, "\n");
+          value = value.replace(/\\r/g, "\r");
+        }
+        obj[key] = value;
+      }
+      return obj;
+    }
+    function _parseVault(options) {
+      const vaultPath = _vaultPath(options);
+      const result = DotenvModule.configDotenv({ path: vaultPath });
+      if (!result.parsed) {
+        const err = new Error(`MISSING_DATA: Cannot parse ${vaultPath} for an unknown reason`);
+        err.code = "MISSING_DATA";
+        throw err;
+      }
+      const keys = _dotenvKey(options).split(",");
+      const length = keys.length;
+      let decrypted;
+      for (let i = 0; i < length; i++) {
+        try {
+          const key = keys[i].trim();
+          const attrs = _instructions(result, key);
+          decrypted = DotenvModule.decrypt(attrs.ciphertext, attrs.key);
+          break;
+        } catch (error) {
+          if (i + 1 >= length) {
+            throw error;
+          }
+        }
+      }
+      return DotenvModule.parse(decrypted);
+    }
+    function _warn(message) {
+      console.log(`[dotenv@${version}][WARN] ${message}`);
+    }
+    function _debug(message) {
+      console.log(`[dotenv@${version}][DEBUG] ${message}`);
+    }
+    function _dotenvKey(options) {
+      if (options && options.DOTENV_KEY && options.DOTENV_KEY.length > 0) {
+        return options.DOTENV_KEY;
+      }
+      if (process.env.DOTENV_KEY && process.env.DOTENV_KEY.length > 0) {
+        return process.env.DOTENV_KEY;
+      }
+      return "";
+    }
+    function _instructions(result, dotenvKey) {
+      let uri;
+      try {
+        uri = new URL(dotenvKey);
+      } catch (error) {
+        if (error.code === "ERR_INVALID_URL") {
+          const err = new Error("INVALID_DOTENV_KEY: Wrong format. Must be in valid uri format like dotenv://:key_1234@dotenvx.com/vault/.env.vault?environment=development");
+          err.code = "INVALID_DOTENV_KEY";
+          throw err;
+        }
+        throw error;
+      }
+      const key = uri.password;
+      if (!key) {
+        const err = new Error("INVALID_DOTENV_KEY: Missing key part");
+        err.code = "INVALID_DOTENV_KEY";
+        throw err;
+      }
+      const environment = uri.searchParams.get("environment");
+      if (!environment) {
+        const err = new Error("INVALID_DOTENV_KEY: Missing environment part");
+        err.code = "INVALID_DOTENV_KEY";
+        throw err;
+      }
+      const environmentKey = `DOTENV_VAULT_${environment.toUpperCase()}`;
+      const ciphertext = result.parsed[environmentKey];
+      if (!ciphertext) {
+        const err = new Error(`NOT_FOUND_DOTENV_ENVIRONMENT: Cannot locate environment ${environmentKey} in your .env.vault file.`);
+        err.code = "NOT_FOUND_DOTENV_ENVIRONMENT";
+        throw err;
+      }
+      return { ciphertext, key };
+    }
+    function _vaultPath(options) {
+      let possibleVaultPath = null;
+      if (options && options.path && options.path.length > 0) {
+        if (Array.isArray(options.path)) {
+          for (const filepath of options.path) {
+            if (fs2.existsSync(filepath)) {
+              possibleVaultPath = filepath.endsWith(".vault") ? filepath : `${filepath}.vault`;
+            }
+          }
+        } else {
+          possibleVaultPath = options.path.endsWith(".vault") ? options.path : `${options.path}.vault`;
+        }
+      } else {
+        possibleVaultPath = path2.resolve(process.cwd(), ".env.vault");
+      }
+      if (fs2.existsSync(possibleVaultPath)) {
+        return possibleVaultPath;
+      }
+      return null;
+    }
+    function _resolveHome(envPath) {
+      return envPath[0] === "~" ? path2.join(os.homedir(), envPath.slice(1)) : envPath;
+    }
+    function _configVault(options) {
+      const debug = Boolean(options && options.debug);
+      if (debug) {
+        _debug("Loading env from encrypted .env.vault");
+      }
+      const parsed = DotenvModule._parseVault(options);
+      let processEnv = process.env;
+      if (options && options.processEnv != null) {
+        processEnv = options.processEnv;
+      }
+      DotenvModule.populate(processEnv, parsed, options);
+      return { parsed };
+    }
+    function configDotenv(options) {
+      const dotenvPath = path2.resolve(process.cwd(), ".env");
+      let encoding = "utf8";
+      const debug = Boolean(options && options.debug);
+      if (options && options.encoding) {
+        encoding = options.encoding;
+      } else {
+        if (debug) {
+          _debug("No encoding is specified. UTF-8 is used by default");
+        }
+      }
+      let optionPaths = [dotenvPath];
+      if (options && options.path) {
+        if (!Array.isArray(options.path)) {
+          optionPaths = [_resolveHome(options.path)];
+        } else {
+          optionPaths = [];
+          for (const filepath of options.path) {
+            optionPaths.push(_resolveHome(filepath));
+          }
+        }
+      }
+      let lastError;
+      const parsedAll = {};
+      for (const path3 of optionPaths) {
+        try {
+          const parsed = DotenvModule.parse(fs2.readFileSync(path3, { encoding }));
+          DotenvModule.populate(parsedAll, parsed, options);
+        } catch (e) {
+          if (debug) {
+            _debug(`Failed to load ${path3} ${e.message}`);
+          }
+          lastError = e;
+        }
+      }
+      let processEnv = process.env;
+      if (options && options.processEnv != null) {
+        processEnv = options.processEnv;
+      }
+      DotenvModule.populate(processEnv, parsedAll, options);
+      if (lastError) {
+        return { parsed: parsedAll, error: lastError };
+      } else {
+        return { parsed: parsedAll };
+      }
+    }
+    function config(options) {
+      if (_dotenvKey(options).length === 0) {
+        return DotenvModule.configDotenv(options);
+      }
+      const vaultPath = _vaultPath(options);
+      if (!vaultPath) {
+        _warn(`You set DOTENV_KEY but you are missing a .env.vault file at ${vaultPath}. Did you forget to build it?`);
+        return DotenvModule.configDotenv(options);
+      }
+      return DotenvModule._configVault(options);
+    }
+    function decrypt(encrypted, keyStr) {
+      const key = Buffer.from(keyStr.slice(-64), "hex");
+      let ciphertext = Buffer.from(encrypted, "base64");
+      const nonce = ciphertext.subarray(0, 12);
+      const authTag = ciphertext.subarray(-16);
+      ciphertext = ciphertext.subarray(12, -16);
+      try {
+        const aesgcm = crypto.createDecipheriv("aes-256-gcm", key, nonce);
+        aesgcm.setAuthTag(authTag);
+        return `${aesgcm.update(ciphertext)}${aesgcm.final()}`;
+      } catch (error) {
+        const isRange = error instanceof RangeError;
+        const invalidKeyLength = error.message === "Invalid key length";
+        const decryptionFailed = error.message === "Unsupported state or unable to authenticate data";
+        if (isRange || invalidKeyLength) {
+          const err = new Error("INVALID_DOTENV_KEY: It must be 64 characters long (or more)");
+          err.code = "INVALID_DOTENV_KEY";
+          throw err;
+        } else if (decryptionFailed) {
+          const err = new Error("DECRYPTION_FAILED: Please check your DOTENV_KEY");
+          err.code = "DECRYPTION_FAILED";
+          throw err;
+        } else {
+          throw error;
+        }
+      }
+    }
+    function populate(processEnv, parsed, options = {}) {
+      const debug = Boolean(options && options.debug);
+      const override = Boolean(options && options.override);
+      if (typeof parsed !== "object") {
+        const err = new Error("OBJECT_REQUIRED: Please check the processEnv argument being passed to populate");
+        err.code = "OBJECT_REQUIRED";
+        throw err;
+      }
+      for (const key of Object.keys(parsed)) {
+        if (Object.prototype.hasOwnProperty.call(processEnv, key)) {
+          if (override === true) {
+            processEnv[key] = parsed[key];
+          }
+          if (debug) {
+            if (override === true) {
+              _debug(`"${key}" is already defined and WAS overwritten`);
+            } else {
+              _debug(`"${key}" is already defined and was NOT overwritten`);
+            }
+          }
+        } else {
+          processEnv[key] = parsed[key];
+        }
+      }
+    }
+    var DotenvModule = {
+      configDotenv,
+      _configVault,
+      _parseVault,
+      config,
+      decrypt,
+      parse,
+      populate
+    };
+    module2.exports.configDotenv = DotenvModule.configDotenv;
+    module2.exports._configVault = DotenvModule._configVault;
+    module2.exports._parseVault = DotenvModule._parseVault;
+    module2.exports.config = DotenvModule.config;
+    module2.exports.decrypt = DotenvModule.decrypt;
+    module2.exports.parse = DotenvModule.parse;
+    module2.exports.populate = DotenvModule.populate;
+    module2.exports = DotenvModule;
+  }
+});
+
 // models/databaseSchema.js
 var require_databaseSchema = __commonJS({
   "models/databaseSchema.js"(exports2, module2) {
@@ -93506,31 +93841,59 @@ var require_databaseSchema = __commonJS({
     var patchesSchema = new Schema(
       {
         amount: { type: Number, required: true },
-        date: { type: Date, required: true },
-        notes: { type: String, required: false }
-      }
+        date: { type: Date, required: true, default: Date.now },
+        notes: { type: String, required: false, default: "" }
+      },
+      { timestamps: true }
     );
     var paymentsSchema = new Schema(
       {
         name: { type: String, required: true },
         price: { type: Number, required: true },
-        date: { type: Date, required: true },
-        notes: { type: String, required: false }
-      }
-    );
-    var accountStatementSchema = new Schema(
-      {
-        code: { type: Number, required: true },
-        clientName: { type: String, required: true },
-        phoneNumber: { type: String, required: false },
-        address: { type: String, required: true },
-        date: { type: Date, required: true },
-        notes: { type: String, required: false },
-        patches: { type: [patchesSchema], required: false },
-        payments: { type: [paymentsSchema], required: false }
+        date: { type: Date, required: true, default: Date.now },
+        notes: { type: String, required: false, default: "" }
       },
       { timestamps: true }
     );
+    var transactionSchema = new Schema(
+      {
+        accountStatement: {
+          type: mongoose2.Schema.Types.ObjectId,
+          ref: "accountStatement",
+          required: true,
+          index: true
+        },
+        code: { type: Number, required: true },
+        title: { type: String, required: true },
+        // اسم المعاملة / الشقة / الخدمة
+        date: { type: Date, required: true, default: Date.now },
+        notes: { type: String, required: false, default: "" },
+        status: { type: String, default: "\u0642\u064A\u062F \u0627\u0644\u062A\u0646\u0641\u064A\u0630" },
+        // قيد التنفيذ، مكتملة، ملغاة
+        patches: { type: [patchesSchema], default: [] },
+        payments: { type: [paymentsSchema], default: [] }
+        // المصروفات والتكاليف
+      },
+      { timestamps: true }
+    );
+    transactionSchema.index({ accountStatement: 1, createdAt: -1 });
+    transactionSchema.index({ code: 1 });
+    var accountStatementSchema = new Schema(
+      {
+        code: { type: Number, required: true, unique: true },
+        clientName: { type: String, required: true, index: true },
+        phoneNumber: { type: String, required: false },
+        address: { type: String, required: true },
+        date: { type: Date, required: true, default: Date.now },
+        notes: { type: String, required: false, default: "" },
+        isActive: { type: Boolean, default: true, index: true },
+        // Retained for backward-compatibility; new workflow uses transactions
+        patches: { type: [patchesSchema], default: [] },
+        payments: { type: [paymentsSchema], default: [] }
+      },
+      { timestamps: true }
+    );
+    accountStatementSchema.index({ clientName: "text" });
     var itemSchema = new Schema(
       {
         name: { type: String, required: true },
@@ -93565,7 +93928,14 @@ var require_databaseSchema = __commonJS({
       "accountStatement",
       accountStatementSchema
     );
-    module2.exports = { Client, Invoice, AccountStatement, Apartment };
+    var Transaction = mongoose2.model("transaction", transactionSchema);
+    module2.exports = {
+      Client,
+      Invoice,
+      AccountStatement,
+      Apartment,
+      Transaction
+    };
   }
 });
 
@@ -93947,9 +94317,14 @@ var require_accountStatements = __commonJS({
     var getAccountStatements = async (req, res) => {
       const page = Number(req.query.page) || 1;
       const limit = Number(req.query.limit) || 5;
-      const { date, clientName, code, address, phoneNumber } = req.query;
+      const { date, clientName, code, address, phoneNumber, status } = req.query;
       const matchData = () => {
         let obj = {};
+        if (status === "active") {
+          obj.isActive = { $ne: false };
+        } else if (status === "inactive") {
+          obj.isActive = false;
+        }
         if (date) {
           obj.date = new Date(date);
         }
@@ -93986,19 +94361,74 @@ var require_accountStatements = __commonJS({
           }
         },
         {
+          $lookup: {
+            from: "transactions",
+            localField: "_id",
+            foreignField: "accountStatement",
+            as: "clientTransactions"
+          }
+        },
+        {
           $addFields: {
+            transactionsCount: { $size: "$clientTransactions" },
             totalPatches: {
-              $reduce: {
-                input: "$patches",
-                initialValue: 0,
-                in: { $add: ["$$value", "$$this.amount"] }
+              $cond: {
+                if: { $gt: [{ $size: "$clientTransactions" }, 0] },
+                then: {
+                  $reduce: {
+                    input: "$clientTransactions",
+                    initialValue: 0,
+                    in: {
+                      $add: [
+                        "$$value",
+                        {
+                          $reduce: {
+                            input: "$$this.patches",
+                            initialValue: 0,
+                            in: { $add: ["$$value", { $ifNull: ["$$this.amount", 0] }] }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                else: {
+                  $reduce: {
+                    input: "$patches",
+                    initialValue: 0,
+                    in: { $add: ["$$value", { $ifNull: ["$$this.amount", 0] }] }
+                  }
+                }
               }
             },
             totalPayments: {
-              $reduce: {
-                input: "$payments",
-                initialValue: 0,
-                in: { $add: ["$$value", "$$this.price"] }
+              $cond: {
+                if: { $gt: [{ $size: "$clientTransactions" }, 0] },
+                then: {
+                  $reduce: {
+                    input: "$clientTransactions",
+                    initialValue: 0,
+                    in: {
+                      $add: [
+                        "$$value",
+                        {
+                          $reduce: {
+                            input: "$$this.payments",
+                            initialValue: 0,
+                            in: { $add: ["$$value", { $ifNull: ["$$this.price", 0] }] }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                else: {
+                  $reduce: {
+                    input: "$payments",
+                    initialValue: 0,
+                    in: { $add: ["$$value", { $ifNull: ["$$this.price", 0] }] }
+                  }
+                }
               }
             }
           }
@@ -94064,19 +94494,74 @@ var require_accountStatements = __commonJS({
           }
         },
         {
+          $lookup: {
+            from: "transactions",
+            localField: "_id",
+            foreignField: "accountStatement",
+            as: "clientTransactions"
+          }
+        },
+        {
           $addFields: {
+            transactionsCount: { $size: "$clientTransactions" },
             totalPatches: {
-              $reduce: {
-                input: "$patches",
-                initialValue: 0,
-                in: { $add: ["$$value", "$$this.amount"] }
+              $cond: {
+                if: { $gt: [{ $size: "$clientTransactions" }, 0] },
+                then: {
+                  $reduce: {
+                    input: "$clientTransactions",
+                    initialValue: 0,
+                    in: {
+                      $add: [
+                        "$$value",
+                        {
+                          $reduce: {
+                            input: "$$this.patches",
+                            initialValue: 0,
+                            in: { $add: ["$$value", { $ifNull: ["$$this.amount", 0] }] }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                else: {
+                  $reduce: {
+                    input: "$patches",
+                    initialValue: 0,
+                    in: { $add: ["$$value", { $ifNull: ["$$this.amount", 0] }] }
+                  }
+                }
               }
             },
             totalPayments: {
-              $reduce: {
-                input: "$payments",
-                initialValue: 0,
-                in: { $add: ["$$value", "$$this.price"] }
+              $cond: {
+                if: { $gt: [{ $size: "$clientTransactions" }, 0] },
+                then: {
+                  $reduce: {
+                    input: "$clientTransactions",
+                    initialValue: 0,
+                    in: {
+                      $add: [
+                        "$$value",
+                        {
+                          $reduce: {
+                            input: "$$this.payments",
+                            initialValue: 0,
+                            in: { $add: ["$$value", { $ifNull: ["$$this.price", 0] }] }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                else: {
+                  $reduce: {
+                    input: "$payments",
+                    initialValue: 0,
+                    in: { $add: ["$$value", { $ifNull: ["$$this.price", 0] }] }
+                  }
+                }
               }
             }
           }
@@ -94107,13 +94592,54 @@ var require_accountStatements = __commonJS({
       const accountStatementCode = (await AccountStatement.find({ client })).length + 1;
       res.status(200).send({ code: accountStatementCode });
     };
+    var getAccountStatementsNames = async (req, res) => {
+      try {
+        const accountStatements = await AccountStatement.find(
+          { isActive: { $ne: false } },
+          { _id: 1, clientName: 1, code: 1 }
+        );
+        const clientsNames = accountStatements.map((c) => ({
+          id: c._id,
+          name: c.clientName,
+          code: c.code
+        }));
+        res.status(200).send({ clientsNames });
+      } catch (error) {
+        res.status(500).send({ message: error.message });
+      }
+    };
+    var toggleAccountStatementStatus = async (req, res) => {
+      try {
+        const { accountStatementId } = req.query;
+        if (!accountStatementId) {
+          return res.status(400).json({ message: "\u0645\u0639\u0631\u0651\u0641 \u0643\u0634\u0641 \u0627\u0644\u062D\u0633\u0627\u0628 \u0645\u0637\u0644\u0648\u0628" });
+        }
+        const current = await AccountStatement.findById(accountStatementId);
+        if (!current) {
+          return res.status(404).json({ message: "\u0643\u0634\u0641 \u0627\u0644\u062D\u0633\u0627\u0628 \u063A\u064A\u0631 \u0645\u0648\u062C\u0648\u062F" });
+        }
+        const newStatus = current.isActive === false ? true : false;
+        current.isActive = newStatus;
+        await current.save();
+        res.status(200).json({
+          message: newStatus ? "\u062A\u0645 \u062A\u0641\u0639\u064A\u0644 \u0643\u0634\u0641 \u0627\u0644\u062D\u0633\u0627\u0628 \u0628\u0646\u062C\u0627\u062D" : "\u062A\u0645 \u062A\u0639\u0637\u064A\u0644 \u0643\u0634\u0641 \u0627\u0644\u062D\u0633\u0627\u0628 \u0628\u0646\u062C\u0627\u062D",
+          isActive: newStatus,
+          data: current
+        });
+      } catch (error) {
+        console.error("Error toggling account status:", error);
+        res.status(500).json({ message: error.message });
+      }
+    };
     module2.exports = {
       addAccountStatement,
       deleteAccountStatement,
       updateAccountStatement,
       getAccountStatements,
       getOneAccountStatement,
-      getAccountStatementLastCode
+      getAccountStatementLastCode,
+      getAccountStatementsNames,
+      toggleAccountStatementStatus
     };
   }
 });
@@ -94125,11 +94651,294 @@ var require_accountStatementsRoutes = __commonJS({
     var router = express2.Router();
     var accountStatementController = require_accountStatements();
     router.route("/get-all").get(accountStatementController.getAccountStatements);
+    router.route("/get-names").get(accountStatementController.getAccountStatementsNames);
     router.route("/get-one").get(accountStatementController.getOneAccountStatement);
     router.route("/add").post(accountStatementController.addAccountStatement);
     router.route("/delete").delete(accountStatementController.deleteAccountStatement);
     router.route("/update").put(accountStatementController.updateAccountStatement);
+    router.route("/toggle-status").put(accountStatementController.toggleAccountStatementStatus);
     router.route("/get-code").get(accountStatementController.getAccountStatementLastCode);
+    module2.exports = router;
+  }
+});
+
+// controllers/transactions.js
+var require_transactions2 = __commonJS({
+  "controllers/transactions.js"(exports2, module2) {
+    var { Transaction, AccountStatement } = require_databaseSchema();
+    var { ObjectId: ObjectId2 } = require_lib5();
+    var addTransaction = async (req, res) => {
+      try {
+        const { accountStatement, title, date, notes, status, patches, payments } = req.body;
+        if (!accountStatement || !title) {
+          return res.status(400).json({
+            message: "\u0645\u0639\u0631\u0651\u0641 \u0643\u0634\u0641 \u0627\u0644\u062D\u0633\u0627\u0628 \u0648\u0627\u0633\u0645 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u0645\u0637\u0644\u0648\u0628\u0627\u0646"
+          });
+        }
+        const lastTx = await Transaction.findOne({ code: { $exists: true } }).sort({ code: -1 }).select("code");
+        let code = 1e3;
+        if (lastTx && typeof lastTx.code === "number" && lastTx.code >= 1e3) {
+          code = lastTx.code + 1;
+        }
+        const transaction = await Transaction.create({
+          accountStatement: new ObjectId2(accountStatement),
+          code,
+          title: title.trim(),
+          date: date ? new Date(date) : /* @__PURE__ */ new Date(),
+          notes: notes || "",
+          status: status || "\u0642\u064A\u062F \u0627\u0644\u062A\u0646\u0641\u064A\u0630",
+          patches: Array.isArray(patches) ? patches : [],
+          payments: Array.isArray(payments) ? payments : []
+        });
+        res.status(201).json({
+          data: transaction,
+          message: "\u062A\u0645 \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u0648\u062D\u0641\u0638\u0647\u0627 \u0628\u0646\u062C\u0627\u062D"
+        });
+      } catch (error) {
+        console.error("Error adding transaction:", error);
+        res.status(500).json({
+          message: "\u062D\u062F\u062B \u062E\u0637\u0623 \u0623\u062B\u0646\u0627\u0621 \u0625\u0636\u0627\u0641\u0629 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629",
+          error: error.message
+        });
+      }
+    };
+    var updateTransaction = async (req, res) => {
+      try {
+        const { transactionId } = req.query;
+        if (!transactionId) {
+          return res.status(400).json({ message: "\u0645\u0639\u0631\u0651\u0641 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u0645\u0637\u0644\u0648\u0628" });
+        }
+        const { title, date, notes, status, patches, payments } = req.body;
+        const updateData = {};
+        if (title !== void 0) updateData.title = title.trim();
+        if (date !== void 0) updateData.date = new Date(date);
+        if (notes !== void 0) updateData.notes = notes;
+        if (status !== void 0) updateData.status = status;
+        if (patches !== void 0) updateData.patches = patches;
+        if (payments !== void 0) updateData.payments = payments;
+        const updated = await Transaction.findByIdAndUpdate(
+          transactionId,
+          { $set: updateData },
+          { new: true }
+        );
+        if (!updated) {
+          return res.status(404).json({ message: "\u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u063A\u064A\u0631 \u0645\u0648\u062C\u0648\u062F\u0629" });
+        }
+        res.status(200).json({
+          data: updated,
+          message: "\u062A\u0645 \u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u0628\u0646\u062C\u0627\u062D"
+        });
+      } catch (error) {
+        console.error("Error updating transaction:", error);
+        res.status(500).json({
+          message: "\u062D\u062F\u062B \u062E\u0637\u0623 \u0623\u062B\u0646\u0627\u0621 \u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629",
+          error: error.message
+        });
+      }
+    };
+    var deleteTransaction = async (req, res) => {
+      try {
+        const { transactionId } = req.query;
+        if (!transactionId) {
+          return res.status(400).json({ message: "\u0645\u0639\u0631\u0651\u0641 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u0645\u0637\u0644\u0648\u0628" });
+        }
+        const deleted = await Transaction.findByIdAndDelete(transactionId);
+        if (!deleted) {
+          return res.status(404).json({ message: "\u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u063A\u064A\u0631 \u0645\u0648\u062C\u0648\u062F\u0629" });
+        }
+        res.status(200).json({
+          data: deleted,
+          message: "\u062A\u0645 \u062D\u0630\u0641 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u0628\u0646\u062C\u0627\u062D"
+        });
+      } catch (error) {
+        console.error("Error deleting transaction:", error);
+        res.status(500).json({
+          message: "\u062D\u062F\u062B \u062E\u0637\u0623 \u0623\u062B\u0646\u0627\u0621 \u062D\u0630\u0641 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629",
+          error: error.message
+        });
+      }
+    };
+    var getTransactionsByClient = async (req, res) => {
+      try {
+        const { accountStatementId } = req.query;
+        if (!accountStatementId) {
+          return res.status(400).json({ message: "\u0645\u0639\u0631\u0651\u0641 \u0643\u0634\u0641 \u0627\u0644\u062D\u0633\u0627\u0628 \u0645\u0637\u0644\u0648\u0628" });
+        }
+        const statementObjectId = new ObjectId2(accountStatementId);
+        const client = await AccountStatement.findById(statementObjectId);
+        if (!client) {
+          return res.status(404).json({ message: "\u0643\u0634\u0641 \u062D\u0633\u0627\u0628 \u0627\u0644\u0639\u0645\u064A\u0644 \u063A\u064A\u0631 \u0645\u0648\u062C\u0648\u062F" });
+        }
+        const transactions = await Transaction.aggregate([
+          {
+            $match: {
+              accountStatement: statementObjectId
+            }
+          },
+          {
+            $addFields: {
+              totalPatches: {
+                $reduce: {
+                  input: "$patches",
+                  initialValue: 0,
+                  in: { $add: ["$$value", { $ifNull: ["$$this.amount", 0] }] }
+                }
+              },
+              totalPayments: {
+                $reduce: {
+                  input: "$payments",
+                  initialValue: 0,
+                  in: { $add: ["$$value", { $ifNull: ["$$this.price", 0] }] }
+                }
+              }
+            }
+          },
+          {
+            $addFields: {
+              balance: { $subtract: ["$totalPatches", "$totalPayments"] },
+              creditor: {
+                $cond: {
+                  if: { $gt: ["$totalPatches", "$totalPayments"] },
+                  then: { $subtract: ["$totalPatches", "$totalPayments"] },
+                  else: 0
+                }
+              },
+              debtor: {
+                $cond: {
+                  if: { $gt: ["$totalPayments", "$totalPatches"] },
+                  then: { $subtract: ["$totalPayments", "$totalPatches"] },
+                  else: 0
+                }
+              }
+            }
+          },
+          {
+            $sort: { date: -1, code: -1 }
+          }
+        ]);
+        let grandTotalPatches = 0;
+        let grandTotalPayments = 0;
+        for (const tx of transactions) {
+          grandTotalPatches += tx.totalPatches || 0;
+          grandTotalPayments += tx.totalPayments || 0;
+        }
+        const summary = {
+          totalTransactions: transactions.length,
+          grandTotalPatches,
+          grandTotalPayments,
+          grandBalance: grandTotalPatches - grandTotalPayments,
+          isCreditor: grandTotalPatches >= grandTotalPayments
+        };
+        res.status(200).json({
+          client,
+          transactions,
+          summary
+        });
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+        res.status(500).json({
+          message: "\u062D\u062F\u062B \u062E\u0637\u0623 \u0623\u062B\u0646\u0627\u0621 \u062C\u0644\u0628 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0627\u062A",
+          error: error.message
+        });
+      }
+    };
+    var getOneTransaction = async (req, res) => {
+      try {
+        const { transactionId } = req.query;
+        if (!transactionId) {
+          return res.status(400).json({ message: "\u0645\u0639\u0631\u0651\u0641 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u0645\u0637\u0644\u0648\u0628" });
+        }
+        const txObjectId = new ObjectId2(transactionId);
+        const result = await Transaction.aggregate([
+          {
+            $match: { _id: txObjectId }
+          },
+          {
+            $lookup: {
+              from: "accountstatements",
+              localField: "accountStatement",
+              foreignField: "_id",
+              as: "clientDetails"
+            }
+          },
+          {
+            $unwind: {
+              path: "$clientDetails",
+              preserveNullAndEmptyArrays: true
+            }
+          },
+          {
+            $addFields: {
+              totalPatches: {
+                $reduce: {
+                  input: "$patches",
+                  initialValue: 0,
+                  in: { $add: ["$$value", { $ifNull: ["$$this.amount", 0] }] }
+                }
+              },
+              totalPayments: {
+                $reduce: {
+                  input: "$payments",
+                  initialValue: 0,
+                  in: { $add: ["$$value", { $ifNull: ["$$this.price", 0] }] }
+                }
+              }
+            }
+          },
+          {
+            $addFields: {
+              balance: { $subtract: ["$totalPatches", "$totalPayments"] }
+            }
+          }
+        ]);
+        if (!result || result.length === 0) {
+          return res.status(404).json({ message: "\u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629 \u063A\u064A\u0631 \u0645\u0648\u062C\u0648\u062F\u0629" });
+        }
+        res.status(200).json({ data: result[0] });
+      } catch (error) {
+        console.error("Error getting one transaction:", error);
+        res.status(500).json({
+          message: "\u062D\u062F\u062B \u062E\u0637\u0623 \u0623\u062B\u0646\u0627\u0621 \u062C\u0644\u0628 \u062A\u0641\u0627\u0635\u064A\u0644 \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629",
+          error: error.message
+        });
+      }
+    };
+    var getTransactionNextCode = async (req, res) => {
+      try {
+        const lastTx = await Transaction.findOne({ code: { $exists: true } }).sort({ code: -1 }).select("code");
+        let nextCode = 1e3;
+        if (lastTx && typeof lastTx.code === "number" && lastTx.code >= 1e3) {
+          nextCode = lastTx.code + 1;
+        }
+        res.status(200).json({ code: nextCode });
+      } catch (error) {
+        console.error("Error getting next transaction code:", error);
+        res.status(500).json({ message: error.message, code: 1e3 });
+      }
+    };
+    module2.exports = {
+      addTransaction,
+      updateTransaction,
+      deleteTransaction,
+      getTransactionsByClient,
+      getOneTransaction,
+      getTransactionNextCode
+    };
+  }
+});
+
+// routes/transactionsRoutes.js
+var require_transactionsRoutes = __commonJS({
+  "routes/transactionsRoutes.js"(exports2, module2) {
+    var express2 = require_express2();
+    var router = express2.Router();
+    var transactionsController = require_transactions2();
+    router.route("/add").post(transactionsController.addTransaction);
+    router.route("/update").put(transactionsController.updateTransaction);
+    router.route("/delete").delete(transactionsController.deleteTransaction);
+    router.route("/get-by-client").get(transactionsController.getTransactionsByClient);
+    router.route("/get-one").get(transactionsController.getOneTransaction);
+    router.route("/get-code").get(transactionsController.getTransactionNextCode);
     module2.exports = router;
   }
 });
@@ -94448,12 +95257,25 @@ var require_apartments = __commonJS({
       res.status(200).send({ apartmentCode });
     };
     var getApartmentsNames = async (req, res) => {
-      const { clientId } = req.query;
-      const apartments = await Apartment.find({ client: clientId });
-      const apartmentsNames = apartments.map((apartment) => {
-        return { id: apartment._id, name: apartment.address };
-      });
-      res.status(200).send({ apartmentsNames });
+      try {
+        const { clientId } = req.query;
+        let query = {};
+        if (clientId) {
+          try {
+            query = { $or: [{ client: clientId }, { client: new objectId(clientId) }] };
+          } catch (e) {
+            query = { client: clientId };
+          }
+        }
+        const apartments = await Apartment.find(query);
+        const apartmentsNames = apartments.map((apartment) => ({
+          id: apartment._id,
+          name: apartment.address
+        }));
+        res.status(200).send({ apartmentsNames });
+      } catch (error) {
+        res.status(500).send({ message: error.message });
+      }
     };
     module2.exports = {
       addApartment,
@@ -94484,614 +95306,208 @@ var require_apartmentsRoutes = __commonJS({
   }
 });
 
-// node_modules/electron-squirrel-startup/node_modules/ms/index.js
-var require_ms5 = __commonJS({
-  "node_modules/electron-squirrel-startup/node_modules/ms/index.js"(exports2, module2) {
-    var s = 1e3;
-    var m = s * 60;
-    var h = m * 60;
-    var d = h * 24;
-    var y = d * 365.25;
-    module2.exports = function(val, options) {
-      options = options || {};
-      var type = typeof val;
-      if (type === "string" && val.length > 0) {
-        return parse(val);
-      } else if (type === "number" && isNaN(val) === false) {
-        return options.long ? fmtLong(val) : fmtShort(val);
-      }
-      throw new Error(
-        "val is not a non-empty string or a valid number. val=" + JSON.stringify(val)
-      );
-    };
-    function parse(str) {
-      str = String(str);
-      if (str.length > 100) {
-        return;
-      }
-      var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(
-        str
-      );
-      if (!match) {
-        return;
-      }
-      var n = parseFloat(match[1]);
-      var type = (match[2] || "ms").toLowerCase();
-      switch (type) {
-        case "years":
-        case "year":
-        case "yrs":
-        case "yr":
-        case "y":
-          return n * y;
-        case "days":
-        case "day":
-        case "d":
-          return n * d;
-        case "hours":
-        case "hour":
-        case "hrs":
-        case "hr":
-        case "h":
-          return n * h;
-        case "minutes":
-        case "minute":
-        case "mins":
-        case "min":
-        case "m":
-          return n * m;
-        case "seconds":
-        case "second":
-        case "secs":
-        case "sec":
-        case "s":
-          return n * s;
-        case "milliseconds":
-        case "millisecond":
-        case "msecs":
-        case "msec":
-        case "ms":
-          return n;
-        default:
-          return void 0;
-      }
-    }
-    function fmtShort(ms) {
-      if (ms >= d) {
-        return Math.round(ms / d) + "d";
-      }
-      if (ms >= h) {
-        return Math.round(ms / h) + "h";
-      }
-      if (ms >= m) {
-        return Math.round(ms / m) + "m";
-      }
-      if (ms >= s) {
-        return Math.round(ms / s) + "s";
-      }
-      return ms + "ms";
-    }
-    function fmtLong(ms) {
-      return plural(ms, d, "day") || plural(ms, h, "hour") || plural(ms, m, "minute") || plural(ms, s, "second") || ms + " ms";
-    }
-    function plural(ms, n, name) {
-      if (ms < n) {
-        return;
-      }
-      if (ms < n * 1.5) {
-        return Math.floor(ms / n) + " " + name;
-      }
-      return Math.ceil(ms / n) + " " + name + "s";
-    }
-  }
-});
-
-// node_modules/electron-squirrel-startup/node_modules/debug/src/debug.js
-var require_debug4 = __commonJS({
-  "node_modules/electron-squirrel-startup/node_modules/debug/src/debug.js"(exports2, module2) {
-    exports2 = module2.exports = createDebug.debug = createDebug["default"] = createDebug;
-    exports2.coerce = coerce;
-    exports2.disable = disable;
-    exports2.enable = enable;
-    exports2.enabled = enabled;
-    exports2.humanize = require_ms5();
-    exports2.names = [];
-    exports2.skips = [];
-    exports2.formatters = {};
-    var prevTime;
-    function selectColor(namespace) {
-      var hash = 0, i;
-      for (i in namespace) {
-        hash = (hash << 5) - hash + namespace.charCodeAt(i);
-        hash |= 0;
-      }
-      return exports2.colors[Math.abs(hash) % exports2.colors.length];
-    }
-    function createDebug(namespace) {
-      function debug() {
-        if (!debug.enabled) return;
-        var self2 = debug;
-        var curr = +/* @__PURE__ */ new Date();
-        var ms = curr - (prevTime || curr);
-        self2.diff = ms;
-        self2.prev = prevTime;
-        self2.curr = curr;
-        prevTime = curr;
-        var args = new Array(arguments.length);
-        for (var i = 0; i < args.length; i++) {
-          args[i] = arguments[i];
-        }
-        args[0] = exports2.coerce(args[0]);
-        if ("string" !== typeof args[0]) {
-          args.unshift("%O");
-        }
-        var index = 0;
-        args[0] = args[0].replace(/%([a-zA-Z%])/g, function(match, format) {
-          if (match === "%%") return match;
-          index++;
-          var formatter = exports2.formatters[format];
-          if ("function" === typeof formatter) {
-            var val = args[index];
-            match = formatter.call(self2, val);
-            args.splice(index, 1);
-            index--;
-          }
-          return match;
-        });
-        exports2.formatArgs.call(self2, args);
-        var logFn = debug.log || exports2.log || console.log.bind(console);
-        logFn.apply(self2, args);
-      }
-      debug.namespace = namespace;
-      debug.enabled = exports2.enabled(namespace);
-      debug.useColors = exports2.useColors();
-      debug.color = selectColor(namespace);
-      if ("function" === typeof exports2.init) {
-        exports2.init(debug);
-      }
-      return debug;
-    }
-    function enable(namespaces) {
-      exports2.save(namespaces);
-      exports2.names = [];
-      exports2.skips = [];
-      var split = (typeof namespaces === "string" ? namespaces : "").split(/[\s,]+/);
-      var len = split.length;
-      for (var i = 0; i < len; i++) {
-        if (!split[i]) continue;
-        namespaces = split[i].replace(/\*/g, ".*?");
-        if (namespaces[0] === "-") {
-          exports2.skips.push(new RegExp("^" + namespaces.substr(1) + "$"));
-        } else {
-          exports2.names.push(new RegExp("^" + namespaces + "$"));
-        }
-      }
-    }
-    function disable() {
-      exports2.enable("");
-    }
-    function enabled(name) {
-      var i, len;
-      for (i = 0, len = exports2.skips.length; i < len; i++) {
-        if (exports2.skips[i].test(name)) {
-          return false;
-        }
-      }
-      for (i = 0, len = exports2.names.length; i < len; i++) {
-        if (exports2.names[i].test(name)) {
-          return true;
-        }
-      }
-      return false;
-    }
-    function coerce(val) {
-      if (val instanceof Error) return val.stack || val.message;
-      return val;
-    }
-  }
-});
-
-// node_modules/electron-squirrel-startup/node_modules/debug/src/browser.js
-var require_browser5 = __commonJS({
-  "node_modules/electron-squirrel-startup/node_modules/debug/src/browser.js"(exports2, module2) {
-    exports2 = module2.exports = require_debug4();
-    exports2.log = log;
-    exports2.formatArgs = formatArgs;
-    exports2.save = save;
-    exports2.load = load;
-    exports2.useColors = useColors;
-    exports2.storage = "undefined" != typeof chrome && "undefined" != typeof chrome.storage ? chrome.storage.local : localstorage();
-    exports2.colors = [
-      "lightseagreen",
-      "forestgreen",
-      "goldenrod",
-      "dodgerblue",
-      "darkorchid",
-      "crimson"
-    ];
-    function useColors() {
-      if (typeof window !== "undefined" && window.process && window.process.type === "renderer") {
-        return true;
-      }
-      return typeof document !== "undefined" && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance || // is firebug? http://stackoverflow.com/a/398120/376773
-      typeof window !== "undefined" && window.console && (window.console.firebug || window.console.exception && window.console.table) || // is firefox >= v31?
-      // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-      typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31 || // double check webkit in userAgent just in case we are in a worker
-      typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/);
-    }
-    exports2.formatters.j = function(v) {
-      try {
-        return JSON.stringify(v);
-      } catch (err) {
-        return "[UnexpectedJSONParseError]: " + err.message;
-      }
-    };
-    function formatArgs(args) {
-      var useColors2 = this.useColors;
-      args[0] = (useColors2 ? "%c" : "") + this.namespace + (useColors2 ? " %c" : " ") + args[0] + (useColors2 ? "%c " : " ") + "+" + exports2.humanize(this.diff);
-      if (!useColors2) return;
-      var c = "color: " + this.color;
-      args.splice(1, 0, c, "color: inherit");
-      var index = 0;
-      var lastC = 0;
-      args[0].replace(/%[a-zA-Z%]/g, function(match) {
-        if ("%%" === match) return;
-        index++;
-        if ("%c" === match) {
-          lastC = index;
-        }
-      });
-      args.splice(lastC, 0, c);
-    }
-    function log() {
-      return "object" === typeof console && console.log && Function.prototype.apply.call(console.log, console, arguments);
-    }
-    function save(namespaces) {
-      try {
-        if (null == namespaces) {
-          exports2.storage.removeItem("debug");
-        } else {
-          exports2.storage.debug = namespaces;
-        }
-      } catch (e) {
-      }
-    }
-    function load() {
-      var r;
-      try {
-        r = exports2.storage.debug;
-      } catch (e) {
-      }
-      if (!r && typeof process !== "undefined" && "env" in process) {
-        r = process.env.DEBUG;
-      }
-      return r;
-    }
-    exports2.enable(load());
-    function localstorage() {
-      try {
-        return window.localStorage;
-      } catch (e) {
-      }
-    }
-  }
-});
-
-// node_modules/electron-squirrel-startup/node_modules/debug/src/node.js
-var require_node7 = __commonJS({
-  "node_modules/electron-squirrel-startup/node_modules/debug/src/node.js"(exports2, module2) {
-    var tty = require("tty");
-    var util = require("util");
-    exports2 = module2.exports = require_debug4();
-    exports2.init = init;
-    exports2.log = log;
-    exports2.formatArgs = formatArgs;
-    exports2.save = save;
-    exports2.load = load;
-    exports2.useColors = useColors;
-    exports2.colors = [6, 2, 3, 4, 5, 1];
-    exports2.inspectOpts = Object.keys(process.env).filter(function(key) {
-      return /^debug_/i.test(key);
-    }).reduce(function(obj, key) {
-      var prop = key.substring(6).toLowerCase().replace(/_([a-z])/g, function(_, k) {
-        return k.toUpperCase();
-      });
-      var val = process.env[key];
-      if (/^(yes|on|true|enabled)$/i.test(val)) val = true;
-      else if (/^(no|off|false|disabled)$/i.test(val)) val = false;
-      else if (val === "null") val = null;
-      else val = Number(val);
-      obj[prop] = val;
-      return obj;
-    }, {});
-    var fd = parseInt(process.env.DEBUG_FD, 10) || 2;
-    if (1 !== fd && 2 !== fd) {
-      util.deprecate(function() {
-      }, "except for stderr(2) and stdout(1), any other usage of DEBUG_FD is deprecated. Override debug.log if you want to use a different log function (https://git.io/debug_fd)")();
-    }
-    var stream = 1 === fd ? process.stdout : 2 === fd ? process.stderr : createWritableStdioStream(fd);
-    function useColors() {
-      return "colors" in exports2.inspectOpts ? Boolean(exports2.inspectOpts.colors) : tty.isatty(fd);
-    }
-    exports2.formatters.o = function(v) {
-      this.inspectOpts.colors = this.useColors;
-      return util.inspect(v, this.inspectOpts).split("\n").map(function(str) {
-        return str.trim();
-      }).join(" ");
-    };
-    exports2.formatters.O = function(v) {
-      this.inspectOpts.colors = this.useColors;
-      return util.inspect(v, this.inspectOpts);
-    };
-    function formatArgs(args) {
-      var name = this.namespace;
-      var useColors2 = this.useColors;
-      if (useColors2) {
-        var c = this.color;
-        var prefix = "  \x1B[3" + c + ";1m" + name + " \x1B[0m";
-        args[0] = prefix + args[0].split("\n").join("\n" + prefix);
-        args.push("\x1B[3" + c + "m+" + exports2.humanize(this.diff) + "\x1B[0m");
-      } else {
-        args[0] = (/* @__PURE__ */ new Date()).toUTCString() + " " + name + " " + args[0];
-      }
-    }
-    function log() {
-      return stream.write(util.format.apply(util, arguments) + "\n");
-    }
-    function save(namespaces) {
-      if (null == namespaces) {
-        delete process.env.DEBUG;
-      } else {
-        process.env.DEBUG = namespaces;
-      }
-    }
-    function load() {
-      return process.env.DEBUG;
-    }
-    function createWritableStdioStream(fd2) {
-      var stream2;
-      var tty_wrap = process.binding("tty_wrap");
-      switch (tty_wrap.guessHandleType(fd2)) {
-        case "TTY":
-          stream2 = new tty.WriteStream(fd2);
-          stream2._type = "tty";
-          if (stream2._handle && stream2._handle.unref) {
-            stream2._handle.unref();
-          }
-          break;
-        case "FILE":
-          var fs2 = require("fs");
-          stream2 = new fs2.SyncWriteStream(fd2, { autoClose: false });
-          stream2._type = "fs";
-          break;
-        case "PIPE":
-        case "TCP":
-          var net = require("net");
-          stream2 = new net.Socket({
-            fd: fd2,
-            readable: false,
-            writable: true
-          });
-          stream2.readable = false;
-          stream2.read = null;
-          stream2._type = "pipe";
-          if (stream2._handle && stream2._handle.unref) {
-            stream2._handle.unref();
-          }
-          break;
-        default:
-          throw new Error("Implement me. Unknown stream file type!");
-      }
-      stream2.fd = fd2;
-      stream2._isStdio = true;
-      return stream2;
-    }
-    function init(debug) {
-      debug.inspectOpts = {};
-      var keys = Object.keys(exports2.inspectOpts);
-      for (var i = 0; i < keys.length; i++) {
-        debug.inspectOpts[keys[i]] = exports2.inspectOpts[keys[i]];
-      }
-    }
-    exports2.enable(load());
-  }
-});
-
-// node_modules/electron-squirrel-startup/node_modules/debug/src/index.js
-var require_src5 = __commonJS({
-  "node_modules/electron-squirrel-startup/node_modules/debug/src/index.js"(exports2, module2) {
-    if (typeof process !== "undefined" && process.type === "renderer") {
-      module2.exports = require_browser5();
-    } else {
-      module2.exports = require_node7();
-    }
-  }
-});
-
-// node_modules/electron-squirrel-startup/index.js
-var require_electron_squirrel_startup = __commonJS({
-  "node_modules/electron-squirrel-startup/index.js"(exports2, module2) {
-    var path2 = require("path");
-    var spawn = require("child_process").spawn;
-    var debug = require_src5()("electron-squirrel-startup");
-    var app2 = require("electron").app;
-    var run = function(args, done) {
-      var updateExe = path2.resolve(path2.dirname(process.execPath), "..", "Update.exe");
-      debug("Spawning `%s` with args `%s`", updateExe, args);
-      spawn(updateExe, args, {
-        detached: true
-      }).on("close", done);
-    };
-    var check = function() {
-      if (process.platform === "win32") {
-        var cmd = process.argv[1];
-        debug("processing squirrel command `%s`", cmd);
-        var target = path2.basename(process.execPath);
-        if (cmd === "--squirrel-install" || cmd === "--squirrel-updated") {
-          run(["--createShortcut=" + target], app2.quit);
-          return true;
-        }
-        if (cmd === "--squirrel-uninstall") {
-          run(["--removeShortcut=" + target], app2.quit);
-          return true;
-        }
-        if (cmd === "--squirrel-obsolete") {
-          app2.quit();
-          return true;
-        }
-      }
-      return false;
-    };
-    module2.exports = check();
-  }
-});
-
 // main.js
 var fs = require("fs");
 var path = require("path");
-fs.appendFileSync(path.join(process.cwd(), "app.log"), "main.bundle.js started\n");
-var { app, BrowserWindow, screen } = require("electron/main");
+var { app, BrowserWindow, screen, shell } = require("electron");
 var express = require_express2();
 var mongoose = require_mongoose2();
-var url = "mongodb://127.0.0.1:27017/finishes";
-var newUrl = require("url");
 var cors = require_lib9();
-var bodyparser = require_body_parser();
-var logFile = fs.createWriteStream(path.join(process.cwd(), "app.log"), { flags: "a" });
+var bodyParser = require_body_parser();
+var http = require("http");
+require_main().config({ path: path.join(__dirname, ".env") });
+app.commandLine.appendSwitch("enable-gpu-rasterization");
+app.commandLine.appendSwitch("enable-zero-copy");
+app.commandLine.appendSwitch("ignore-gpu-blocklist");
+app.commandLine.appendSwitch("enable-smooth-scrolling");
+var gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+  process.exit(0);
+}
+var logStream = null;
+try {
+  const logDir = app ? app.getPath("userData") : process.cwd();
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+  }
+  logStream = fs.createWriteStream(path.join(logDir, "app.log"), { flags: "a" });
+} catch (e) {
+}
 var origConsoleLog = console.log;
+var origConsoleError = console.error;
 console.log = function(...args) {
-  const msg = args.map((a) => typeof a === "string" ? a : JSON.stringify(a)).join(" ");
-  logFile.write(msg + "\n");
+  const msg = `[${(/* @__PURE__ */ new Date()).toISOString()}] [INFO] ` + args.map((a) => typeof a === "string" ? a : JSON.stringify(a)).join(" ");
+  if (logStream) logStream.write(msg + "\n");
   origConsoleLog.apply(console, args);
 };
-function createWindow() {
-  console.log("createWindow called");
-  try {
-    const size = screen.getPrimaryDisplay().workAreaSize;
-    let win = new BrowserWindow({
-      width: size.width,
-      height: size.height,
-      icon: `file://${__dirname}/favicon.ico`,
-      fullscreenable: true,
-      webPreferences: {
-        nodeIntegration: true,
-        preload: path.join(__dirname, "preload.js"),
-        contextIsolation: true,
-        enableRemoteModule: true,
-        webviewTag: true,
-        sandbox: false,
-        // required for full DOM access in React
-        devTools: true
-      }
-    });
-    const indexPath = path.join(__dirname, "dist", "index.html");
-    if (fs.existsSync(indexPath)) {
-      win.loadFile(indexPath);
-      console.log("direname", __dirname);
-      console.log("NODE_ENV:", "production");
-    } else {
-      console.error("index.html not found at:", indexPath);
-    }
-    console.log("production");
-    if (false) {
-      try {
-        null(main_module);
-        const livereload = null;
-        const connectLivereload = null;
-        const liveReloadServer = livereload.createServer();
-        liveReloadServer.watch(
-          path.join(__dirname, "/dist", "index.html")
-        );
-        appExp.use(connectLivereload());
-        liveReloadServer.server.once("connection", () => {
-          setTimeout(() => {
-            liveReloadServer.refresh("/");
-          }, 100);
-        });
-      } catch (e) {
-        console.log("Dev tools not loaded:", e);
-      }
-    }
+console.error = function(...args) {
+  const msg = `[${(/* @__PURE__ */ new Date()).toISOString()}] [ERROR] ` + args.map((a) => typeof a === "string" ? a : JSON.stringify(a)).join(" ");
+  if (logStream) logStream.write(msg + "\n");
+  origConsoleError.apply(console, args);
+};
+console.log("Shatab Application Starting...");
+var mainWindow = null;
+var httpServer = null;
+var isServerStarted = false;
+var PORT = process.env.PORT || 5050;
+var LOCAL_DB = "mongodb://127.0.0.1:27017/Finishes";
+var CLOUD_DB = "mongodb+srv://ah_db_user:Ah20192344@newcluster.iloyqea.mongodb.net/Finishes";
+var DB_URI = process.env.DATABASE_URL ? process.env.DATABASE_URL.includes("mongodb") ? process.env.DATABASE_URL : `mongodb://${process.env.DATABASE_URL}/Finishes` : LOCAL_DB;
+function startBackendServer() {
+  if (isServerStarted) return Promise.resolve();
+  return new Promise((resolve) => {
     try {
-      win.setIcon(path.join(__dirname, "favicon.ico"));
-      win.on("closed", function() {
-        win = null;
-      });
-    } catch (error) {
-      console.log("Error in setIcon:", error.message);
-    }
-    try {
-      console.log("Before Express server setup");
-      const appExp2 = express();
-      console.log("Express app created");
-      appExp2.set("view engine", "ejs");
-      console.log("View engine set");
-      appExp2.set("views", "views");
-      console.log("Views set");
-      appExp2.use(bodyparser.json());
-      console.log("Body parser set");
-      appExp2.use(cors());
-      console.log("CORS set");
-      const server = require("http").createServer(appExp2);
-      console.log("HTTP server created");
-      appExp2.use("/uploads", express.static("uploads"));
-      console.log("Uploads static set");
-      appExp2.use(express.static(path.join(__dirname, "dist")));
-      console.log("Dist static set");
-      console.log("Loading route: ./routes/clientsRoutes");
-      appExp2.use("/api/client", require_clientsRoutes());
-      console.log("Loaded ./routes/clientsRoutes");
-      appExp2.use("/api/invoice", require_invoicesRoutes());
-      console.log("Loaded ./routes/invoicesRoutes");
-      appExp2.use("/api/accountStatement", require_accountStatementsRoutes());
-      console.log("Loaded ./routes/accountStatementsRoutes");
-      appExp2.use("/api/item", require_itemesRoutes());
-      console.log("Loaded ./routes/itemesRoutes");
-      appExp2.use("/api/apartment", require_apartmentsRoutes());
-      console.log("Loaded ./routes/apartmentsRoutes");
-      const folderPath1 = path.join(__dirname, "uploads");
-      if (fs.existsSync(folderPath1)) {
-        console.log("Folder exists.");
-      } else {
-        console.log("Folder does not exist.");
-        fs.mkdirSync(folderPath1, { recursive: true });
+      const appExp = express();
+      appExp.use(cors());
+      appExp.use(bodyParser.json({ limit: "50mb" }));
+      appExp.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+      const uploadsDir = path.join(__dirname, "uploads");
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
       }
-      appExp2.get("*", (req, res, next) => {
-        res.sendFile(
-          path.join(__dirname, "/dist", "index.html")
-        );
+      appExp.use("/uploads", express.static(uploadsDir));
+      const distDir = path.join(__dirname, "dist");
+      appExp.use(express.static(distDir));
+      appExp.use("/api/client", require_clientsRoutes());
+      appExp.use("/api/invoice", require_invoicesRoutes());
+      appExp.use("/api/accountStatement", require_accountStatementsRoutes());
+      appExp.use("/api/transaction", require_transactionsRoutes());
+      appExp.use("/api/item", require_itemesRoutes());
+      appExp.use("/api/apartment", require_apartmentsRoutes());
+      appExp.get("*", (req, res) => {
+        const indexPath = path.join(distDir, "index.html");
+        if (fs.existsSync(indexPath)) {
+          res.sendFile(indexPath);
+        } else {
+          res.status(404).send("Application bundle not found");
+        }
       });
-      server.listen(8081, () => {
-        console.log("listening on port 8080");
-        mongoose.connect(url).then((clientdb) => {
-          console.log("connect to database");
+      httpServer = http.createServer(appExp);
+      httpServer.listen(PORT, () => {
+        console.log(`Internal API server running smoothly on port ${PORT}`);
+        isServerStarted = true;
+        console.log(`Connecting to MongoDB (${DB_URI})...`);
+        mongoose.connect(DB_URI, { serverSelectionTimeoutMS: 4e3 }).then(() => {
+          console.log("Connected to MongoDB successfully!");
+          resolve();
         }).catch((err) => {
-          console.error("Database connection error:", err);
+          console.error("Local database connection failed, falling back to cloud Atlas cluster...", err.message);
+          mongoose.connect(CLOUD_DB, { serverSelectionTimeoutMS: 8e3 }).then(() => {
+            console.log("Connected to Cloud Atlas Database successfully!");
+            resolve();
+          }).catch((cloudErr) => {
+            console.error("Cloud database connection also failed:", cloudErr.message);
+            resolve();
+          });
         });
       });
-      server.on("error", (err) => {
-        console.error("Server failed to start:", err);
+      httpServer.on("error", (err) => {
+        if (err.code === "EADDRINUSE") {
+          console.log(`Port ${PORT} is already in use by an active instance. Proceeding...`);
+          isServerStarted = true;
+          resolve();
+        } else {
+          console.error("Server error:", err);
+          resolve();
+        }
       });
     } catch (err) {
-      console.error("Error in Express server setup:", err);
+      console.error("Error setting up backend server:", err);
+      resolve();
     }
-  } catch (err) {
-    console.error("Error in createWindow:", err);
-  }
+  });
 }
-app.whenReady().then(() => {
-  createWindow();
+function createMainWindow() {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+    return;
+  }
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { width, height } = primaryDisplay.workAreaSize;
+  mainWindow = new BrowserWindow({
+    width: Math.min(1440, width),
+    height: Math.min(920, height),
+    minWidth: 1024,
+    minHeight: 700,
+    center: true,
+    show: false,
+    // Prevent white flash on launch
+    backgroundColor: "#0b0c0e",
+    // Dark theme matching background
+    autoHideMenuBar: true,
+    // Clean modern UI without default menu bar
+    title: "\u0634\u0637\u0628",
+    icon: path.join(__dirname, "favicon.ico"),
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      preload: path.join(__dirname, "preload.js"),
+      sandbox: false,
+      backgroundThrottling: false,
+      // Maintain smooth performance in background
+      spellcheck: false,
+      // Save memory & CPU
+      devTools: !app.isPackaged
+    }
+  });
+  mainWindow.setMenuBarVisibility(false);
+  const iconPath = path.join(__dirname, "favicon.ico");
+  if (fs.existsSync(iconPath)) {
+    mainWindow.setIcon(iconPath);
+  }
+  mainWindow.webContents.on("page-title-updated", (event, title) => {
+    mainWindow.setTitle(title);
+  });
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.maximize();
+    mainWindow.show();
+    mainWindow.focus();
+    console.log("Main window presented smoothly without white flash.");
+  });
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("mailto:")) {
+      shell.openExternal(url);
+      return { action: "deny" };
+    }
+    return { action: "allow" };
+  });
+  const indexPath = path.join(__dirname, "dist", "index.html");
+  if (fs.existsSync(indexPath)) {
+    mainWindow.loadFile(indexPath);
+  } else {
+    console.error("index.html not found at:", indexPath);
+  }
+  mainWindow.on("closed", () => {
+    mainWindow = null;
+  });
+}
+app.on("second-instance", () => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+});
+app.whenReady().then(async () => {
+  await startBackendServer();
+  createMainWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      createMainWindow();
     }
   });
 });
-if (require_electron_squirrel_startup()) app.quit();
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+});
+app.on("before-quit", () => {
+  if (httpServer) {
+    httpServer.close();
+  }
+  mongoose.disconnect();
 });
 /*! Bundled license information:
 
